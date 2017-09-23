@@ -25,8 +25,11 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     
-    // LEVEL CONTENT VARIABLES
+    // GAME VARIABLES
     var rubyCount = Int()
+    var currentLevel = 0
+    
+    // LEVEL VARIABLES
     var comments = [String]()
     var tileButtons = [UIButton]()
     var tileContents = [String]()
@@ -34,17 +37,23 @@ class GamePlayViewController: UIViewController {
     var incorrectTiles = [String]()
     var answer = String()
     
-    // GAME PLAY TRACKING VARIABLES
+    // LEVEL TRACKER VARIABLES
+    var removeCount = 0
+    
+    // TILE TRACKERS
     var tileInPlay = [Bool]()
+    var tileOriginPositions: [CGPoint] = [CGPoint]()
+    var tileAnswerPositions = [Int]()
+    var existingAnswerTiles = 0
+    
+    // ANSWER SPACE TRACKERS
     var solutionGuess = [String]()
+    var answerPositions: [CGPoint] = [CGPoint]()
     var answerTileExists = [Bool]()
     var answerCount = Int()
-    var tileOriginPositions: [CGPoint] = [CGPoint]()
-    var answerPositions: [CGPoint] = [CGPoint]()
-    var tileAnswerPositions = [Int]()
-    var currentLevel = 0
-    var existingAnswerTiles = 0
-    var removeCount = 0
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

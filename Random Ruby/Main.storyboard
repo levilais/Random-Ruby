@@ -433,7 +433,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.26600000000000001" green="0.57379999999999998" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="i0K-ym-yyf" firstAttribute="top" secondItem="wje-rs-F5B" secondAttribute="top" id="1Il-4S-2Nx"/>
                             <constraint firstItem="w8F-Ja-JPF" firstAttribute="trailing" secondItem="i0K-ym-yyf" secondAttribute="trailing" id="DEz-Ke-0dC"/>
@@ -523,7 +523,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7S5-zJ-NAe">
-                                <rect key="frame" x="112" y="121" width="150.5" height="60"/>
+                                <rect key="frame" x="101" y="125" width="172.5" height="56"/>
                                 <fontDescription key="fontDescription" name="Ranchers-Regular" family="Ranchers" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
