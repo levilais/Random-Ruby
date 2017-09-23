@@ -22,6 +22,7 @@
         <scene sceneID="5n5-Ek-nYc">
             <objects>
                 <viewController id="0Jw-2g-tpg" customClass="HomeViewController" customModule="Random_Ruby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="D5K-0K-brv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,6 +79,7 @@
         <scene sceneID="mlC-up-0bH">
             <objects>
                 <viewController id="IJe-Ga-ZwA" customClass="GamePlayViewController" customModule="Random_Ruby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="wje-rs-F5B">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -493,6 +495,7 @@
         <scene sceneID="JfM-DF-AKg">
             <objects>
                 <viewController id="zuE-xd-OTX" customClass="CorrectPopoverViewController" customModule="Random_Ruby" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides/>
                     <view key="view" contentMode="scaleToFill" id="lBK-o8-hBF">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -523,7 +526,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7S5-zJ-NAe">
-                                <rect key="frame" x="101" y="125" width="172.5" height="56"/>
+                                <rect key="frame" x="112" y="121" width="150.5" height="60"/>
                                 <fontDescription key="fontDescription" name="Ranchers-Regular" family="Ranchers" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
