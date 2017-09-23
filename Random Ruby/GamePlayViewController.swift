@@ -28,6 +28,7 @@ class GamePlayViewController: UIViewController {
     // GAME VARIABLES
     var rubyCount = Int()
     var currentLevel = 0
+    var gameState = GameLevel.GameState.firstLevel
     
     // LEVEL VARIABLES
     var comments = [String]()
@@ -51,9 +52,6 @@ class GamePlayViewController: UIViewController {
     var answerPositions: [CGPoint] = [CGPoint]()
     var answerTileExists = [Bool]()
     var answerCount = Int()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +100,7 @@ class GamePlayViewController: UIViewController {
             tileButtons[i].setTitle(String(self.tileContents[i]), for: .normal)
         }
         var i = 0
-        for comment in comments {
+        for comment in GameLevel.comments {
             commentLabels[i].text = comment
             i += 1
         }
