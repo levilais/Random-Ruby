@@ -11,9 +11,9 @@ import UIKit
 
 class GameLevel {
     // GAME VARIABLES
-    static var rubyCount = Int()
+    static var rubyCount = 150
     static var currentLevel = 0
-    static var gameState = GameLevel.GameState.firstLevel
+    static var currentGameState = GameLevel.GameState.firstLevel
     
     // LEVEL VARIABLES
     static var comments = [String]()
@@ -42,5 +42,28 @@ class GameLevel {
         case firstLevel = 0
         case activeLevel = 1
         case finishedLevel = 2
+    }
+    
+    // KEYS FOR DATA READ/WRITE
+    enum Key: String {
+        case rubyCount = "rubyCount"
+        case currentLevel = "currentLevel"
+        case currentGameState = "gameState"
+        case comments = "comments"
+        case tileButtons = "tileButtons"
+        case tileContents = "tileContents"
+        case correctTiles = "correctTiles"
+        case incorrectTiles = "incorrectTiles"
+        case answer = "answer"
+        case removeCount = "removeCount"
+        case tileInPlay = "tileInPlay"
+        case tileOriginPositions = "tileOriginPositions"
+        case tileAnswerPositions = "tileAnswerPositions"
+        case existingAnswerTiles = "existingAnswerTiles"
+        case solutionGuess = "solutionGuess"
+        case answerPositions = "answerPositions"
+        case answerTileExists = "answerTileExists"
+        case answerCount = "answerCount"
+        case GameState = "GameState"
     }
 }

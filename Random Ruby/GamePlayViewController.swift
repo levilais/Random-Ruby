@@ -36,7 +36,7 @@ class GamePlayViewController: UIViewController {
             }
         }
         
-        GameLevel.rubyCount = 150
+        // GameLevel.rubyCount = 150
         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
     }
     
