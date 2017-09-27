@@ -16,7 +16,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Utilities().setButtonShadow(button: playButton)
-        
     }
     
     // ACTIONS

@@ -64,6 +64,5 @@ class GameLevel {
         case answerPositions = "answerPositions"
         case answerTileExists = "answerTileExists"
         case answerCount = "answerCount"
-        case GameState = "GameState"
     }
 }

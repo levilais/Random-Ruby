@@ -41,10 +41,11 @@ class GamePlayViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if GameLevel.existingAnswerTiles > 0 {
-            setNextLevel()
+        if GameLevel.currentGameState == GameLevel.GameState.activeLevel || GameLevel.currentGameState == GameLevel.GameState.finishedLevel {
+//            UserDefaultsHelper().loadActiveGameContext()
+            setupContent()
         } else {
-            setLevelContent()
+            UserDefaultsHelper().setNextLevelContent()
             setRubyCounter()
             setLabels()
             setTiles()
@@ -52,7 +53,7 @@ class GamePlayViewController: UIViewController {
         }
     }
     
-    func setNextLevel() {
+    func setupContent() {
         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
         GameLevel.comments = []
         GameLevel.tileContents = []
@@ -61,7 +62,13 @@ class GamePlayViewController: UIViewController {
         GameLevel.existingAnswerTiles = 0
         GameLevel.answerCount = 0
         GameLevel.removeCount = 0
-        setLevelContent()
+        
+        if GameLevel.currentGameState == GameLevel.GameState.activeLevel {
+//            UserDefaultsHelper().loadActiveGameContext()
+        } else if GameLevel.currentGameState == GameLevel.GameState.finishedLevel {
+            UserDefaultsHelper().setNextLevelContent()
+        }
+        
         resetAnswerSpace()
         for i in 0..<10 {
             if GameLevel.tileInPlay[i] == true {
@@ -94,12 +101,16 @@ class GamePlayViewController: UIViewController {
             // PUT TILE BACK
             putTileBack(tileToMove: tag)
         }
+        GameLevel.currentGameState = GameLevel.GameState.activeLevel
+//        UserDefaultsHelper().saveActiveGameContext()
     }
     
     @IBAction func solveButtonPressed(_ sender: Any) {
         if GameLevel.solutionGuess.joined() == GameLevel.answer {
             GameLevel.currentLevel += 1
             GameLevel.rubyCount += 4
+            GameLevel.currentGameState = GameLevel.GameState.finishedLevel
+//            UserDefaultsHelper().saveActiveGameContext()
             performSegue(withIdentifier: "showCorrectView", sender: self)
         } else {
             let messages = ["That's not it - try again!","Oooh...A good guess but no.","Keep guessing!","Incorrect. You'll get it next time!"]
@@ -124,10 +135,10 @@ class GamePlayViewController: UIViewController {
                             // PUT TILE BACK
                             putTileBack(tileToMove: tag)
                         }
-                        print("rubyCount Before \(GameLevel.rubyCount)")
                         GameLevel.rubyCount -= 4
-                        print("rubyCount After \(GameLevel.rubyCount)")
                         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
+                        GameLevel.currentGameState = GameLevel.GameState.activeLevel
+//                        UserDefaultsHelper().saveActiveGameContext()
                     }
                     i += 1
                 }
@@ -162,6 +173,8 @@ class GamePlayViewController: UIViewController {
                                 tileButtons[tag].isUserInteractionEnabled = false
                                 tileButtons[tag].setTitleColor(UIColor(red: 208/255.0, green: 1/255.0, blue: 27/255.0, alpha: 1.0), for: .normal)
                                 GameLevel.rubyCount -= 4
+                                GameLevel.currentGameState = GameLevel.GameState.activeLevel
+//                                UserDefaultsHelper().saveActiveGameContext()
                                 Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                             }
                             i2 += 1
@@ -204,53 +217,6 @@ class GamePlayViewController: UIViewController {
         GameLevel.tileInPlay[tileToMove] = false
         GameLevel.solutionGuess[tileAnswerPosition] = ""
         tileButtons[tileToMove].center = GameLevel.tileOriginPositions[tileToMove]
-    }
-    
-    // SETUP LEVEL CONTENT
-    func setLevelContent() {
-        // GET DATA
-        if let url = Bundle.main.url(forResource: "randomRubyJsonData", withExtension: "json") {
-            if let data = NSData(contentsOf: url) {
-                do {
-                    let object = try JSONSerialization.jsonObject(with: data as Data, options: .allowFragments)
-                    if let dataArray = object as? (Array<Dictionary<String, AnyObject>>) {
-                        // SET THE LEVEL FOR THE CORRECT DATA
-                        let levelData = dataArray[GameLevel.currentLevel]
-                        // ANSWER CONTENT
-                        if let answer = levelData["answer"] as? String {
-                            GameLevel.answer = answer
-                        }
-                        
-                        if let answerCountCheck = levelData["answerCount"] as? Int {
-                            GameLevel.answerCount = answerCountCheck
-                        }
-                        // GET COMMENTS
-                        for i in 1...3 {
-                            let comment = "comment" + String(i)
-                            if let commentContent = levelData[comment] as? String {
-                                GameLevel.comments.append(commentContent)
-                            }
-                        }
-                        // TILE CONTENTS
-                        for i in 1...10 {
-                            let tile = "t" + String(i)
-                            if let tileContent = levelData[tile] as? String {
-                                GameLevel.tileContents.append(tileContent)
-                                if i <= GameLevel.answerCount {
-                                    GameLevel.correctTiles.append(tileContent)
-                                } else {
-                                    GameLevel.incorrectTiles.append(tileContent)
-                                }
-                            }
-                        }
-                        GameLevel.tileContents.shuffle()
-                        GameLevel.incorrectTiles.shuffle()
-                    }
-                } catch {
-                    // handle error
-                }
-            }
-        }
     }
     
     // SETUP ANSWER SPACE
