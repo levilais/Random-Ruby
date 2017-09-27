@@ -41,7 +41,7 @@ class GamePlayViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if GameLevel.currentGameState == GameLevel.GameState.activeLevel || GameLevel.currentGameState == GameLevel.GameState.finishedLevel {
+        if GameLevel.currentGameState == "activeLevel" || GameLevel.currentGameState == "finishedLevel" {
 //            UserDefaultsHelper().loadActiveGameContext()
             setupContent()
         } else {
@@ -63,9 +63,9 @@ class GamePlayViewController: UIViewController {
         GameLevel.answerCount = 0
         GameLevel.removeCount = 0
         
-        if GameLevel.currentGameState == GameLevel.GameState.activeLevel {
+        if GameLevel.currentGameState == "activeLevel" {
 //            UserDefaultsHelper().loadActiveGameContext()
-        } else if GameLevel.currentGameState == GameLevel.GameState.finishedLevel {
+        } else if GameLevel.currentGameState == "finishedLevel" {
             UserDefaultsHelper().setNextLevelContent()
         }
         
@@ -101,15 +101,15 @@ class GamePlayViewController: UIViewController {
             // PUT TILE BACK
             putTileBack(tileToMove: tag)
         }
-        GameLevel.currentGameState = GameLevel.GameState.activeLevel
-//        UserDefaultsHelper().saveActiveGameContext()
+        GameLevel.currentGameState = "activeLevel"
+        UserDefaultsHelper().saveActiveGameContext()
     }
     
     @IBAction func solveButtonPressed(_ sender: Any) {
         if GameLevel.solutionGuess.joined() == GameLevel.answer {
             GameLevel.currentLevel += 1
             GameLevel.rubyCount += 4
-            GameLevel.currentGameState = GameLevel.GameState.finishedLevel
+            GameLevel.currentGameState = "finishedLevel"
 //            UserDefaultsHelper().saveActiveGameContext()
             performSegue(withIdentifier: "showCorrectView", sender: self)
         } else {
@@ -117,6 +117,7 @@ class GamePlayViewController: UIViewController {
             let message = Int(arc4random_uniform(4))
             Utilities().temporaryMessage(messageLabel: messageLabel, message: messages[message])
         }
+        UserDefaultsHelper().loadActiveGameContext()
     }
     
     @IBAction func removeButtonPressed(_ sender: Any) {
@@ -137,7 +138,7 @@ class GamePlayViewController: UIViewController {
                         }
                         GameLevel.rubyCount -= 4
                         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
-                        GameLevel.currentGameState = GameLevel.GameState.activeLevel
+                        GameLevel.currentGameState = "activeLevel"
 //                        UserDefaultsHelper().saveActiveGameContext()
                     }
                     i += 1
@@ -173,7 +174,7 @@ class GamePlayViewController: UIViewController {
                                 tileButtons[tag].isUserInteractionEnabled = false
                                 tileButtons[tag].setTitleColor(UIColor(red: 208/255.0, green: 1/255.0, blue: 27/255.0, alpha: 1.0), for: .normal)
                                 GameLevel.rubyCount -= 4
-                                GameLevel.currentGameState = GameLevel.GameState.activeLevel
+                                GameLevel.currentGameState = "activeLevel"
 //                                UserDefaultsHelper().saveActiveGameContext()
                                 Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                             }

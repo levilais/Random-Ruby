@@ -13,7 +13,7 @@ class GameLevel {
     // GAME VARIABLES
     static var rubyCount = 150
     static var currentLevel = 0
-    static var currentGameState = GameLevel.GameState.firstLevel
+    static var currentGameState = "firstLevel"
     
     // LEVEL VARIABLES
     static var comments = [String]()
@@ -38,11 +38,11 @@ class GameLevel {
     static var answerTileExists = [Bool]()
     static var answerCount = Int()
     
-    enum GameState: Int {
-        case firstLevel = 0
-        case activeLevel = 1
-        case finishedLevel = 2
-    }
+//    enum GameState: String {
+//        case firstLevel = "firstLevel"
+//        case activeLevel = "activeLevel"
+//        case finishedLevel = "finishedLevel"
+//    }
     
     // KEYS FOR DATA READ/WRITE
     enum Key: String {
