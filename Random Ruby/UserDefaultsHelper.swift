@@ -113,7 +113,7 @@ class UserDefaultsHelper {
     // LOAD ACTIVE GAME CONTEXT
     func loadActiveGameContext() {
         if let tileOriginalPointData = UserDefaults.standard.object(forKey: GameLevel.Key.tileOriginPositions.rawValue) as? NSArray {
-            if GameLevel.tileOriginPositions.count == 0 {
+            if GameLevel.tileOriginPositions.count < 10 {
                 var i = 0
                 for tileOriginalPoint in tileOriginalPointData {
                     let point = CGPointFromString(tileOriginalPoint as! String)
@@ -129,7 +129,6 @@ class UserDefaultsHelper {
                 }
             }
         }
-            print("tileOriginalPositions \(GameLevel.tileOriginPositions.count)")
         
         if let rubyCountCheck = UserDefaults.standard.object(forKey: GameLevel.Key.rubyCount.rawValue),
             let tileAnswerPositionsCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileAnswerPositions.rawValue),

@@ -35,33 +35,26 @@ class GamePlayViewController: UIViewController {
                 Utilities().setButtonShadow(button: buttonUnwrapped)
             }
         }
+        
+        // GameLevel.rubyCount = 150
+        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setRubyCounter()
-        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
-        
-        print("GameLevel.currentGameState \(GameLevel.currentGameState)")
-        if GameLevel.currentGameState == "activeLevel" {
-            UserDefaultsHelper().loadActiveGameContext()
-            setLabels()
-            createTiles()
-        } else if GameLevel.currentGameState == "finishedLevel" {
-            Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
-            UserDefaultsHelper().loadNextLevelContent()
-            GameLevel.currentGameState = "activeLevel"
-            UserDefaultsHelper().saveGameContext()
+        if GameLevel.currentGameState == "activeLevel" || GameLevel.currentGameState == "finishedLevel" {
+//            UserDefaultsHelper().loadActiveGameContext()
+            setupContent()
         } else {
-            if tileButtons.count == 0 {
-                UserDefaultsHelper().loadNextLevelContent()
-                setLabels()
-                createTiles()
-                setAnswerSpace()
-            }
+            UserDefaultsHelper().loadNextLevelContent()
+            setRubyCounter()
+            setLabels()
+            setTiles()
+            setAnswerSpace()
         }
     }
     
-    func setupNewLevel() {
+    func setupContent() {
+        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
         GameLevel.comments = []
         GameLevel.tileContents = []
         GameLevel.correctTiles = []
@@ -69,14 +62,29 @@ class GamePlayViewController: UIViewController {
         GameLevel.existingAnswerTiles = 0
         GameLevel.answerCount = 0
         GameLevel.removeCount = 0
-        GameLevel.tileInPlay = []
-        GameLevel.tileOriginPositions = []
-        GameLevel.tileAnswerPositions = []
-        commentLabels = []
-        resetAnswerSpace()
-        UserDefaultsHelper().loadNextLevelContent()
-        createTiles()
         
+        if GameLevel.currentGameState == "activeLevel" {
+//            UserDefaultsHelper().loadActiveGameContext()
+        } else if GameLevel.currentGameState == "finishedLevel" {
+            UserDefaultsHelper().loadNextLevelContent()
+        }
+        
+        resetAnswerSpace()
+        for i in 0..<10 {
+            if GameLevel.tileInPlay[i] == true {
+                tileButtons[i].center = GameLevel.tileOriginPositions[i]
+                GameLevel.tileInPlay[i] = false
+            }
+            tileButtons[i].isHidden = false
+            tileButtons[i].isUserInteractionEnabled = true
+            tileButtons[i].setTitleColor(UIColor(red: 35/255.0, green: 100/255.0, blue: 170/255.0, alpha: 1.0), for: .normal)
+            tileButtons[i].setTitle(String(GameLevel.tileContents[i]), for: .normal)
+        }
+        var i = 0
+        for comment in GameLevel.comments {
+            commentLabels[i].text = comment
+            i += 1
+        }
     }
     
     // ACTIONS
@@ -87,19 +95,14 @@ class GamePlayViewController: UIViewController {
     @objc func titleButtonTapped(sender : UIButton) {
         let tile = sender
         let tag = tile.tag
-        print("tile.tag: \(tile.tag)")
         if GameLevel.tileInPlay[tag] == false {
             placeTile(tileToMove: tag)
-            GameLevel.tileInPlay[tag] = true
         } else {
             // PUT TILE BACK
             putTileBack(tileToMove: tag)
-            GameLevel.tileInPlay[tag] = false
         }
-        print(GameLevel.tileInPlay)
-        
         GameLevel.currentGameState = "activeLevel"
-        UserDefaultsHelper().saveGameContext()
+//        UserDefaultsHelper().saveActiveGameContext()
     }
     
     @IBAction func solveButtonPressed(_ sender: Any) {
@@ -107,7 +110,7 @@ class GamePlayViewController: UIViewController {
             GameLevel.currentLevel += 1
             GameLevel.rubyCount += 4
             GameLevel.currentGameState = "finishedLevel"
-            UserDefaultsHelper().saveGameContext()
+//            UserDefaultsHelper().saveActiveGameContext()
             performSegue(withIdentifier: "showCorrectView", sender: self)
         } else {
             let messages = ["That's not it - try again!","Oooh...A good guess but no.","Keep guessing!","Incorrect. You'll get it next time!"]
@@ -134,8 +137,8 @@ class GamePlayViewController: UIViewController {
                         }
                         GameLevel.rubyCount -= 4
                         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
-                        GameLevel.currentGameState = "activeLevel"
-                        UserDefaultsHelper().saveGameContext()
+                        GameLevel.currentGameState = "finishedLevel"
+//                        UserDefaultsHelper().saveActiveGameContext()
                     }
                     i += 1
                 }
@@ -171,7 +174,7 @@ class GamePlayViewController: UIViewController {
                                 tileButtons[tag].setTitleColor(UIColor(red: 208/255.0, green: 1/255.0, blue: 27/255.0, alpha: 1.0), for: .normal)
                                 GameLevel.rubyCount -= 4
                                 GameLevel.currentGameState = "activeLevel"
-                                UserDefaultsHelper().saveGameContext()
+//                                UserDefaultsHelper().saveActiveGameContext()
                                 Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                             }
                             i2 += 1
@@ -224,11 +227,9 @@ class GamePlayViewController: UIViewController {
         for answerSpace in answerSpaces {
             if i < GameLevel.answerCount {
                 let answerPosition = CGPoint(x: answerSpace.center.x, y: answerSpace.center.y)
-                if GameLevel.currentGameState != "activeLevel" {
-                    GameLevel.answerPositions.append(answerPosition)
-                    GameLevel.answerTileExists.append(false)
-                    GameLevel.solutionGuess.append("")
-                }
+                GameLevel.answerPositions.append(answerPosition)
+                GameLevel.answerTileExists.append(false)
+                GameLevel.solutionGuess.append("")
             } else {
                 answerSpace.isHidden = true
             }
@@ -251,7 +252,7 @@ class GamePlayViewController: UIViewController {
         
         i = 0
         for answerSpace in answerSpaces {
-            if GameLevel.solutionGuess.count == 0 {
+            if i < GameLevel.answerCount {
                 let answerPosition = CGPoint(x: answerSpace.center.x, y: answerSpace.center.y)
                 GameLevel.answerPositions.append(answerPosition)
                 GameLevel.answerTileExists.append(false)
@@ -264,47 +265,27 @@ class GamePlayViewController: UIViewController {
     }
     
     // SETUP TILES
-    func createTiles() {
+    func setTiles() {
         gamePlayView.layoutIfNeeded()
-        if tileButtons == [] {
-            resetTiles()
-            var i = 0
-            for solutionSpace in solutionSpaces {
-                let tileButton = UIButton(frame: CGRect(x: solutionSpace.center.x - solutionSpace.frame.width / 2, y: solutionSpace.center.y - solutionSpace.frame.height / 2, width: solutionSpace.frame.width, height: solutionSpace.frame.height))
-                tileButton.tag = i
-                tileButton.setBackgroundImage(UIImage(named: "answerTile.pdf"), for: .normal)
-                tileButton.setTitle(String(GameLevel.tileContents[i]), for: .normal)
-                tileButton.titleLabel?.font = UIFont.systemFont(ofSize: Utilities().screenBasedFontSize(minimumFontSize: 15), weight: UIFont.Weight.heavy)
-                tileButton.setTitleColor(UIColor(red: 35/255.0, green: 100/255.0, blue: 170/255.0, alpha: 1.0), for: .normal)
-                Utilities().setButtonShadow(button: tileButton)
-                tileButton.addTarget(self, action:#selector(self.titleButtonTapped(sender:)), for: .touchUpInside)
-                tileButtons.append(tileButton)
-                gamePlayView.addSubview(tileButton)
-                tileButton.bringSubview(toFront: gamePlayView)
-                GameLevel.tileInPlay.append(false)
-                GameLevel.tileAnswerPositions.append(0)
-                GameLevel.tileOriginPositions.append(CGPoint(x: tileButton.center.x, y: tileButton.center.y))
-                i += 1
-            }
-        } else {
-            var i = 0
-            for button in tileButtons {
-                if GameLevel.tileInPlay[i] == true {
-                    button.center = GameLevel.answerPositions[i]
-                } else {
-                    button.center = GameLevel.tileOriginPositions[i]
-                }
-                i += 1
-            }
+        
+        var i = 0
+        for solutionSpace in solutionSpaces {
+            let tileButton = UIButton(frame: CGRect(x: solutionSpace.center.x - solutionSpace.frame.width / 2, y: solutionSpace.center.y - solutionSpace.frame.height / 2, width: solutionSpace.frame.width, height: solutionSpace.frame.height))
+            tileButton.tag = i
+            tileButton.setBackgroundImage(UIImage(named: "answerTile.pdf"), for: .normal)
+            tileButton.setTitle(String(GameLevel.tileContents[i]), for: .normal)
+            tileButton.titleLabel?.font = UIFont.systemFont(ofSize: Utilities().screenBasedFontSize(minimumFontSize: 15), weight: UIFont.Weight.heavy)
+            tileButton.setTitleColor(UIColor(red: 35/255.0, green: 100/255.0, blue: 170/255.0, alpha: 1.0), for: .normal)
+            Utilities().setButtonShadow(button: tileButton)
+            tileButton.addTarget(self, action:#selector(self.titleButtonTapped(sender:)), for: .touchUpInside)
+            GameLevel.tileOriginPositions.append(CGPoint(x: tileButton.center.x, y: tileButton.center.y))
+            tileButtons.append(tileButton)
+            GameLevel.tileInPlay.append(false)
+            GameLevel.tileAnswerPositions.append(0)
+            gamePlayView.addSubview(tileButton)
+            tileButton.bringSubview(toFront: gamePlayView)
+            i += 1
         }
-    }
-    
-    // RESET TILES
-    func resetTiles() {
-        tileButtons = []
-        GameLevel.tileInPlay = []
-        GameLevel.tileAnswerPositions = []
-        GameLevel.tileOriginPositions = []
     }
     
     // SETUP RUBY COUNTER
