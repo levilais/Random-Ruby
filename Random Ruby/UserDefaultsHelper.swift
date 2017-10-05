@@ -108,6 +108,8 @@ class UserDefaultsHelper {
             stringOfCGPointArray2.append(stringOfCGPoint)
         }
         UserDefaults.standard.set(stringOfCGPointArray2, forKey: GameLevel.Key.answerPositions.rawValue)
+        
+        print("saved")
     }
     
     // LOAD ACTIVE GAME CONTEXT
@@ -165,7 +167,7 @@ class UserDefaultsHelper {
             GameLevel.answerCount = answerCountCheck as! Int
             
 //            print("Ruby Count: \(GameLevel.rubyCount)")
-            print("currentLevel: \(GameLevel.currentLevel)")
+//            print("currentLevel: \(GameLevel.currentLevel)")
 //            print("currentGameState: \(GameLevel.currentGameState)")
 //            print("comments: \(GameLevel.comments)")
 //            print("tileContents: \(GameLevel.tileContents)")
@@ -200,5 +202,6 @@ class UserDefaultsHelper {
                 }
             }
         }
+        print("loaded")
     }
 }
