@@ -105,7 +105,6 @@ class GamePlayViewController: UIViewController {
         if GameLevel.tileInPlay[tag] == false {
             placeTile(tileToMove: tag)
         } else {
-            // PUT TILE BACK
             putTileBack(tileToMove: tag)
         }
         GameLevel.currentGameState = "activeLevel"
@@ -146,8 +145,6 @@ class GamePlayViewController: UIViewController {
                         }
                         GameLevel.rubyCount -= 4
                         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
-                        GameLevel.currentGameState = "activeLevel"
-                        UserDefaultsHelper().saveGameContext()
                     }
                     i += 1
                 }
@@ -156,6 +153,9 @@ class GamePlayViewController: UIViewController {
         } else {
             Utilities().temporaryMessage(messageLabel: messageLabel, message: "You can buy rubies in the store")
         }
+        GameLevel.currentGameState = "activeLevel"
+        UserDefaultsHelper().saveGameContext()
+        Utilities().printData()
     }
     
     @IBAction func revealButtonPressed(_ sender: Any) {
@@ -182,8 +182,6 @@ class GamePlayViewController: UIViewController {
                                 tileButtons[tag].isUserInteractionEnabled = false
                                 tileButtons[tag].setTitleColor(UIColor(red: 208/255.0, green: 1/255.0, blue: 27/255.0, alpha: 1.0), for: .normal)
                                 GameLevel.rubyCount -= 4
-                                GameLevel.currentGameState = "activeLevel"
-//                                UserDefaultsHelper().saveActiveGameContext()
                                 Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                             }
                             i2 += 1
@@ -196,6 +194,9 @@ class GamePlayViewController: UIViewController {
         } else {
             Utilities().temporaryMessage(messageLabel: messageLabel, message: "You can buy rubies in the store")
         }
+        GameLevel.currentGameState = "activeLevel"
+        UserDefaultsHelper().saveGameContext()
+        Utilities().printData()
     }
     
     func placeTile(tileToMove: Int) {
@@ -211,16 +212,19 @@ class GamePlayViewController: UIViewController {
                     GameLevel.tileInPlay[tileTag] = true
                     GameLevel.existingAnswerTiles = GameLevel.existingAnswerTiles + 1
                     GameLevel.solutionGuess[i] = GameLevel.tileContents[tileTag]
-                    GameLevel.tileAnswerPositions[tileTag] = i
+                    GameLevel.tileAnswerPositions[tileTag] = i + 1
                     foundAnswerSpace = true
                 }
                 i += 1
             }
         }
+        GameLevel.currentGameState = "activeLevel"
+        UserDefaultsHelper().saveGameContext()
+        Utilities().printData()
     }
     
     func putTileBack(tileToMove: Int) {
-        let tileAnswerPosition = GameLevel.tileAnswerPositions[tileToMove]
+        let tileAnswerPosition = GameLevel.tileAnswerPositions[tileToMove] - 1
         GameLevel.answerTileExists[tileAnswerPosition] = false
         GameLevel.existingAnswerTiles = GameLevel.existingAnswerTiles - 1
         GameLevel.tileInPlay[tileToMove] = false
@@ -228,6 +232,7 @@ class GamePlayViewController: UIViewController {
         tileButtons[tileToMove].center = GameLevel.tileOriginPositions[tileToMove]
         GameLevel.tileAnswerPositions[tileToMove] = 0
     }
+    
     
     // SETUP ANSWER SPACE
     func setAnswerSpace() {
@@ -286,8 +291,6 @@ class GamePlayViewController: UIViewController {
             tilesExists = true
         }
         
-        print("tileExists: \(tilesExists)")
-        
         gamePlayView.layoutIfNeeded()
         
         if tilesExists == false {
@@ -319,7 +322,9 @@ class GamePlayViewController: UIViewController {
                 }
             }
         }
+        GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
+        Utilities().printData()
     }
     
     // SETUP RUBY COUNTER

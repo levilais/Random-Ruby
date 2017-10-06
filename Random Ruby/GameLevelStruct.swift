@@ -11,6 +11,7 @@ import UIKit
 
 class GameLevel {
     // GAME VARIABLES
+    static var firstLoad = true
     static var rubyCount = 150
     static var currentLevel = 0
     static var currentGameState = "newGame" // "activeLevel", "finishedLevel"
@@ -41,6 +42,7 @@ class GameLevel {
     
     // KEYS FOR DATA READ/WRITE
     enum Key: String {
+        case firstLoad = "firstLoad"
         case tilesExist = "tilesExist"
         case rubyCount = "rubyCount"
         case currentLevel = "currentLevel"
