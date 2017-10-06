@@ -48,6 +48,26 @@ class Utilities {
         button.layer.masksToBounds = false
         button.layer.shadowOpacity = 0.3
     }
+    
+    func printData() {
+        print("Ruby Count: \(GameLevel.rubyCount)")
+        print("currentLevel: \(GameLevel.currentLevel)")
+        print("currentGameState: \(GameLevel.currentGameState)")
+        print("comments: \(GameLevel.comments)")
+        print("tileContents: \(GameLevel.tileContents)")
+        print("correctTiles: \(GameLevel.correctTiles)")
+        print("incorrectTiles: \(GameLevel.incorrectTiles)")
+        print("answer: \(GameLevel.answer)")
+        print("removeCount: \(GameLevel.removeCount)")
+        print("tileInPlay: \(GameLevel.tileInPlay)")
+        print("tileOriginPositions: \(GameLevel.tileOriginPositions)")
+        print("tileAnswerPositions: \(GameLevel.tileAnswerPositions)")
+        print("existingAnswerTiles: \(GameLevel.existingAnswerTiles)")
+        print("solutionGuess: \(GameLevel.solutionGuess)")
+        print("answerPositions: \(GameLevel.answerPositions)")
+        print("answerTileExists: \(GameLevel.answerTileExists)")
+        print("answerCount: \(GameLevel.answerCount)")
+    }
 }
 
 extension MutableCollection {

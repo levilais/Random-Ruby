@@ -59,6 +59,8 @@ class UserDefaultsHelper {
                 }
             }
         }
+        GameLevel.currentGameState = "activeLevel"
+        UserDefaultsHelper().saveGameContext()
     }
     
     // SAVE ACTIVE GAME CONTEXT
@@ -165,24 +167,6 @@ class UserDefaultsHelper {
             GameLevel.solutionGuess = solutionGuessCheck as! [String]
             GameLevel.answerTileExists = answerTileExistsCheck as! [Bool]
             GameLevel.answerCount = answerCountCheck as! Int
-            
-//            print("Ruby Count: \(GameLevel.rubyCount)")
-//            print("currentLevel: \(GameLevel.currentLevel)")
-//            print("currentGameState: \(GameLevel.currentGameState)")
-//            print("comments: \(GameLevel.comments)")
-//            print("tileContents: \(GameLevel.tileContents)")
-//            print("correctTiles: \(GameLevel.correctTiles)")
-//            print("incorrectTiles: \(GameLevel.incorrectTiles)")
-//            print("answer: \(GameLevel.answer)")
-//            print("removeCount: \(GameLevel.removeCount)")
-//            print("tileInPlay: \(GameLevel.tileInPlay)")
-//            print("tileOriginPositions: \(GameLevel.tileOriginPositions)")
-//            print("tileAnswerPositions: \(GameLevel.tileAnswerPositions)")
-//            print("existingAnswerTiles: \(GameLevel.existingAnswerTiles)")
-//            print("solutionGuess: \(GameLevel.solutionGuess)")
-//            print("answerPositions: \(GameLevel.answerPositions)")
-//            print("answerTileExists: \(GameLevel.answerTileExists)")
-//            print("answerCount: \(GameLevel.answerCount)")
         }
         
         if let answerPositions = UserDefaults.standard.object(forKey: GameLevel.Key.answerPositions.rawValue) as? NSArray {
