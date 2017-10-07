@@ -30,13 +30,11 @@ class GameLevel {
     
     // TILE TRACKERS
     static var tileInPlay = [Bool]()
-    static var tileOriginPositions: [CGPoint] = [CGPoint]()
     static var tileAnswerPositions = [Int]()
     static var existingAnswerTiles = 0
     
     // ANSWER SPACE TRACKERS
     static var solutionGuess = [String]()
-    static var answerPositions: [CGPoint] = [CGPoint]()
     static var answerTileExists = [Bool]()
     static var answerCount = Int()
     
@@ -55,11 +53,9 @@ class GameLevel {
         case answer = "answer"
         case removeCount = "removeCount"
         case tileInPlay = "tileInPlay"
-        case tileOriginPositions = "tileOriginPositions"
         case tileAnswerPositions = "tileAnswerPositions"
         case existingAnswerTiles = "existingAnswerTiles"
         case solutionGuess = "solutionGuess"
-        case answerPositions = "answerPositions"
         case answerTileExists = "answerTileExists"
         case answerCount = "answerCount"
     }

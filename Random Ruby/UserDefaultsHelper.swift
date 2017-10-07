@@ -32,6 +32,15 @@ class UserDefaultsHelper {
                         if let answerCountCheck = levelData["answerCount"] as? Int {
                             GameLevel.answerCount = answerCountCheck
                         }
+                        GameLevel.answerTileExists = []
+                        GameLevel.solutionGuess = []
+                        var i = 0
+                        while i < GameLevel.answerCount {
+                            GameLevel.answerTileExists.append(false)
+                            GameLevel.solutionGuess.append("")
+                            i += 1
+                        }
+                        
                         // GET COMMENTS
                         for i in 1...3 {
                             let comment = "comment" + String(i)
@@ -39,7 +48,10 @@ class UserDefaultsHelper {
                                 GameLevel.comments.append(commentContent)
                             }
                         }
+                        
                         // TILE CONTENTS
+                        GameLevel.tileInPlay = []
+                        GameLevel.tileAnswerPositions = []
                         for i in 1...10 {
                             let tile = "t" + String(i)
                             if let tileContent = levelData[tile] as? String {
@@ -50,7 +62,10 @@ class UserDefaultsHelper {
                                     GameLevel.incorrectTiles.append(tileContent)
                                 }
                             }
+                            GameLevel.tileInPlay.append(false)
+                            GameLevel.tileAnswerPositions.append(0)
                         }
+                        
                         GameLevel.tileContents.shuffle()
                         GameLevel.incorrectTiles.shuffle()
                     }
@@ -97,42 +112,42 @@ class UserDefaultsHelper {
 //        print("answerTileExists Saved")
         UserDefaults.standard.set(GameLevel.answerCount, forKey: GameLevel.Key.answerCount.rawValue)
 //        print("answerCount Saved")
-        var stringOfCGPointArray = [String]()
-        for tileOriginalPosition in GameLevel.tileOriginPositions {
-            let stringOfCGPoint = NSStringFromCGPoint(tileOriginalPosition)
-            stringOfCGPointArray.append(stringOfCGPoint)
-        }
-        UserDefaults.standard.set(stringOfCGPointArray, forKey: GameLevel.Key.tileOriginPositions.rawValue)
-        
-        var stringOfCGPointArray2 = [String]()
-        for answerPosition in GameLevel.answerPositions {
-            let stringOfCGPoint = NSStringFromCGPoint(answerPosition)
-            stringOfCGPointArray2.append(stringOfCGPoint)
-        }
-        UserDefaults.standard.set(stringOfCGPointArray2, forKey: GameLevel.Key.answerPositions.rawValue)
-        
-        print("saved")
+//        var stringOfCGPointArray = [String]()
+//        for tileOriginalPosition in GameLevel.tileOriginPositions {
+//            let stringOfCGPoint = NSStringFromCGPoint(tileOriginalPosition)
+//            stringOfCGPointArray.append(stringOfCGPoint)
+//        }
+//        UserDefaults.standard.set(stringOfCGPointArray, forKey: GameLevel.Key.tileOriginPositions.rawValue)
+//
+//        var stringOfCGPointArray2 = [String]()
+//        for answerPosition in GameLevel.answerPositions {
+//            let stringOfCGPoint = NSStringFromCGPoint(answerPosition)
+//            stringOfCGPointArray2.append(stringOfCGPoint)
+//        }
+//        UserDefaults.standard.set(stringOfCGPointArray2, forKey: GameLevel.Key.answerPositions.rawValue)
+//        print("answerPositions: \(GameLevel.answerPositions)")
+//        print("saved")
     }
     
     // LOAD ACTIVE GAME CONTEXT
     func loadActiveGameContext() {
-        if let tileOriginalPointData = UserDefaults.standard.object(forKey: GameLevel.Key.tileOriginPositions.rawValue) as? NSArray {
-            if GameLevel.tileOriginPositions.count < 10 {
-                var i = 0
-                for tileOriginalPoint in tileOriginalPointData {
-                    let point = CGPointFromString(tileOriginalPoint as! String)
-                    GameLevel.tileOriginPositions.append(point)
-                    i += 1
-                }
-            } else {
-                var i = 0
-                for tileOriginalPoint in tileOriginalPointData {
-                    let point = CGPointFromString(tileOriginalPoint as! String)
-                    GameLevel.tileOriginPositions[i] = point
-                    i += 1
-                }
-            }
-        }
+//        if let tileOriginalPointData = UserDefaults.standard.object(forKey: GameLevel.Key.tileOriginPositions.rawValue) as? NSArray {
+//            if GameLevel.tileOriginPositions.count < 10 {
+//                var i = 0
+//                for tileOriginalPoint in tileOriginalPointData {
+//                    let point = CGPointFromString(tileOriginalPoint as! String)
+//                    GameLevel.tileOriginPositions.append(point)
+//                    i += 1
+//                }
+//            } else {
+//                var i = 0
+//                for tileOriginalPoint in tileOriginalPointData {
+//                    let point = CGPointFromString(tileOriginalPoint as! String)
+//                    GameLevel.tileOriginPositions[i] = point
+//                    i += 1
+//                }
+//            }
+//        }
         
         if let rubyCountCheck = UserDefaults.standard.object(forKey: GameLevel.Key.rubyCount.rawValue),
             let tileAnswerPositionsCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileAnswerPositions.rawValue),
@@ -169,23 +184,23 @@ class UserDefaultsHelper {
             GameLevel.answerCount = answerCountCheck as! Int
         }
         
-        if let answerPositions = UserDefaults.standard.object(forKey: GameLevel.Key.answerPositions.rawValue) as? NSArray {
-            if GameLevel.answerPositions.count != GameLevel.answerCount {
-                var i = 0
-                for answerPosition in answerPositions {
-                    let point = CGPointFromString(answerPosition as! String)
-                    GameLevel.answerPositions.append(point)
-                    i += 1
-                }
-            } else {
-                var i = 0
-                for answerPosition in answerPositions {
-                    let point = CGPointFromString(answerPosition as! String)
-                    GameLevel.answerPositions[i] = point
-                    i += 1
-                }
-            }
-        }
+//        if let answerPositions = UserDefaults.standard.object(forKey: GameLevel.Key.answerPositions.rawValue) as? NSArray {
+//            if GameLevel.answerPositions.count != GameLevel.answerCount {
+//                var i = 0
+//                for answerPosition in answerPositions {
+//                    let point = CGPointFromString(answerPosition as! String)
+//                    GameLevel.answerPositions.append(point)
+//                    i += 1
+//                }
+//            } else {
+//                var i = 0
+//                for answerPosition in answerPositions {
+//                    let point = CGPointFromString(answerPosition as! String)
+//                    GameLevel.answerPositions[i] = point
+//                    i += 1
+//                }
+//            }
+//        }
         print("loaded")
     }
 }

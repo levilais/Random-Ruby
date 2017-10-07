@@ -26,9 +26,29 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var settingsButton: UIButton!
     
     var tileButtons = [UIButton]()
+    var tileOriginalPositions = [CGPoint]()
+    var answerPositions = [CGPoint]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let firstLoadCheck = UserDefaults.standard.object(forKey: GameLevel.Key.firstLoad.rawValue) as? Bool {
+            if firstLoadCheck == true {
+                print("worked")
+                UserDefaultsHelper().loadNextLevelContent()
+                GameLevel.firstLoad = false
+                UserDefaults.standard.set(GameLevel.firstLoad, forKey: GameLevel.Key.firstLoad.rawValue)
+            } else {
+                UserDefaultsHelper().loadActiveGameContext()
+            }
+        } else {
+            UserDefaultsHelper().loadNextLevelContent()
+            GameLevel.firstLoad = false
+            UserDefaults.standard.set(GameLevel.firstLoad, forKey: GameLevel.Key.firstLoad.rawValue)
+        }
+        
+        Utilities().printData()
+        setTiles()
+        
         let buttons = [rubyCounterButton,askFriendButton,removeButton,revealButton,homeButton,settingsButton]
         for button in buttons {
             if let buttonUnwrapped = button {
@@ -40,21 +60,13 @@ class GamePlayViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         setRubyCounter()
-        print("currentGameState: \(GameLevel.currentGameState)")
-        if GameLevel.currentGameState == "activeLevel" {
-            UserDefaultsHelper().loadActiveGameContext()
-            setLabels()
-            setTiles()
-            setAnswerSpace()
-        } else if GameLevel.currentGameState == "finishedLevel" {
+        
+        if GameLevel.currentGameState == "finishedLevel" {
             setupNextLevelContent()
-        } else {
-            UserDefaultsHelper().loadNextLevelContent()
-            setLabels()
-            setTiles()
-            setAnswerSpace()
         }
-        Utilities().printData()
+        setLabels()
+        setAnswerSpace()
+        UserDefaultsHelper().saveGameContext()
     }
     
     func setupNextLevelContent() {
@@ -73,11 +85,7 @@ class GamePlayViewController: UIViewController {
         
         if tileButtons.count > 0 {
             for i in 0..<10 {
-                if GameLevel.tileInPlay[i] == true {
-                    tileButtons[i].center = GameLevel.tileOriginPositions[i]
-                }
-                GameLevel.tileInPlay[i] = false
-                GameLevel.tileAnswerPositions[i] = 0
+                tileButtons[i].center = self.tileOriginalPositions[i]
                 tileButtons[i].isHidden = false
                 tileButtons[i].isUserInteractionEnabled = true
                 tileButtons[i].setTitleColor(UIColor(red: 35/255.0, green: 100/255.0, blue: 170/255.0, alpha: 1.0), for: .normal)
@@ -85,12 +93,6 @@ class GamePlayViewController: UIViewController {
             }
         } else {
             setTiles()
-        }
-        
-        var i = 0
-        for comment in GameLevel.comments {
-            commentLabels[i].text = comment
-            i += 1
         }
     }
     
@@ -109,7 +111,7 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-        Utilities().printData()
+//        Utilities().printData()
     }
     
     @IBAction func solveButtonPressed(_ sender: Any) {
@@ -118,7 +120,7 @@ class GamePlayViewController: UIViewController {
             GameLevel.rubyCount += 4
             GameLevel.currentGameState = "finishedLevel"
             UserDefaultsHelper().saveGameContext()
-            Utilities().printData()
+//            Utilities().printData()
             performSegue(withIdentifier: "showCorrectView", sender: self)
         } else {
             let messages = ["That's not it - try again!","Oooh...A good guess but no.","Keep guessing!","Incorrect. You'll get it next time!"]
@@ -155,7 +157,7 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-        Utilities().printData()
+//        Utilities().printData()
     }
     
     @IBAction func revealButtonPressed(_ sender: Any) {
@@ -196,10 +198,11 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-        Utilities().printData()
+//        Utilities().printData()
     }
     
     func placeTile(tileToMove: Int) {
+        print("answerPositions \(answerPositions)")
         let tileTag = tileToMove
         var i = 0
         if GameLevel.existingAnswerTiles < GameLevel.answerCount {
@@ -207,7 +210,7 @@ class GamePlayViewController: UIViewController {
             var foundAnswerSpace = false
             while foundAnswerSpace == false {
                 if GameLevel.answerTileExists[i] == false {
-                    tileButtons[tileTag].center = GameLevel.answerPositions[i]
+                    tileButtons[tileTag].center = self.answerPositions[i]
                     GameLevel.answerTileExists[i] = true
                     GameLevel.tileInPlay[tileTag] = true
                     GameLevel.existingAnswerTiles = GameLevel.existingAnswerTiles + 1
@@ -220,7 +223,7 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-        Utilities().printData()
+//        Utilities().printData()
     }
     
     func putTileBack(tileToMove: Int) {
@@ -229,7 +232,7 @@ class GamePlayViewController: UIViewController {
         GameLevel.existingAnswerTiles = GameLevel.existingAnswerTiles - 1
         GameLevel.tileInPlay[tileToMove] = false
         GameLevel.solutionGuess[tileAnswerPosition] = ""
-        tileButtons[tileToMove].center = GameLevel.tileOriginPositions[tileToMove]
+        tileButtons[tileToMove].center = self.tileOriginalPositions[tileToMove]
         GameLevel.tileAnswerPositions[tileToMove] = 0
     }
     
@@ -237,19 +240,11 @@ class GamePlayViewController: UIViewController {
     // SETUP ANSWER SPACE
     func setAnswerSpace() {
         gamePlayView.layoutIfNeeded()
-        var dataExists = false
-        if GameLevel.answerTileExists.count > 0 {
-            dataExists = true
-        }
         var i = 0
         for answerSpace in answerSpaces {
             if i < GameLevel.answerCount {
                 let answerPosition = CGPoint(x: answerSpace.center.x, y: answerSpace.center.y)
-                if dataExists ==  false {
-                    GameLevel.answerPositions.append(answerPosition)
-                    GameLevel.answerTileExists.append(false)
-                    GameLevel.solutionGuess.append("")
-                }
+                self.answerPositions.append(answerPosition)
             } else {
                 answerSpace.isHidden = true
             }
@@ -259,29 +254,13 @@ class GamePlayViewController: UIViewController {
     
     func resetAnswerSpace() {
         gamePlayView.layoutIfNeeded()
-        
-        GameLevel.answerPositions = []
-        GameLevel.solutionGuess = []
-        GameLevel.answerTileExists = []
-        
+        self.answerPositions = []
         var i = 0
         for answerSpace in answerSpaces {
             answerSpace.isHidden = false
             i += 1
         }
-        
-        i = 0
-        for answerSpace in answerSpaces {
-            if i < GameLevel.answerCount {
-                let answerPosition = CGPoint(x: answerSpace.center.x, y: answerSpace.center.y)
-                GameLevel.answerPositions.append(answerPosition)
-                GameLevel.answerTileExists.append(false)
-                GameLevel.solutionGuess.append("")
-            } else {
-                answerSpace.isHidden = true
-            }
-            i += 1
-        }
+        setAnswerSpace()
     }
     
     // SETUP TILES
@@ -304,10 +283,8 @@ class GamePlayViewController: UIViewController {
                 tileButton.setTitleColor(UIColor(red: 35/255.0, green: 100/255.0, blue: 170/255.0, alpha: 1.0), for: .normal)
                 Utilities().setButtonShadow(button: tileButton)
                 tileButton.addTarget(self, action:#selector(self.titleButtonTapped(sender:)), for: .touchUpInside)
-                GameLevel.tileOriginPositions.append(CGPoint(x: tileButton.center.x, y: tileButton.center.y))
+                self.tileOriginalPositions.append(CGPoint(x: tileButton.center.x, y: tileButton.center.y))
                 tileButtons.append(tileButton)
-                GameLevel.tileInPlay.append(false)
-                GameLevel.tileAnswerPositions.append(0)
                 gamePlayView.addSubview(tileButton)
                 tileButton.bringSubview(toFront: gamePlayView)
                 i += 1
@@ -316,15 +293,15 @@ class GamePlayViewController: UIViewController {
             print("tileButtons.count: \(tileButtons.count)")
             for i in 0..<tileButtons.count {
                 if GameLevel.tileInPlay[i] == true {
-                    tileButtons[i].center = GameLevel.answerPositions[i]
+                    tileButtons[i].center = self.answerPositions[i]
                 } else {
-                    tileButtons[i].center = GameLevel.tileOriginPositions[i]
+                    tileButtons[i].center = self.tileOriginalPositions[i]
                 }
             }
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-        Utilities().printData()
+//        Utilities().printData()
     }
     
     // SETUP RUBY COUNTER
@@ -333,7 +310,7 @@ class GamePlayViewController: UIViewController {
         rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
     }
     
-    // SETUP LABELS
+    // SETUP COMMENT LABELS
     func setLabels() {
         let newFontSize = Utilities().screenBasedFontSize(minimumFontSize: 15)
         

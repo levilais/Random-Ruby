@@ -60,11 +60,9 @@ class Utilities {
         print("answer: \(GameLevel.answer)")
         print("removeCount: \(GameLevel.removeCount)")
         print("tileInPlay: \(GameLevel.tileInPlay)")
-        print("tileOriginPositions: \(GameLevel.tileOriginPositions)")
         print("tileAnswerPositions: \(GameLevel.tileAnswerPositions)")
         print("existingAnswerTiles: \(GameLevel.existingAnswerTiles)")
         print("solutionGuess: \(GameLevel.solutionGuess)")
-        print("answerPositions: \(GameLevel.answerPositions)")
         print("answerTileExists: \(GameLevel.answerTileExists)")
         print("answerCount: \(GameLevel.answerCount)")
     }
