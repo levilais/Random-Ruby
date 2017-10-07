@@ -67,6 +67,7 @@ class GamePlayViewController: UIViewController {
         
         setLabels()
         setAnswerSpace()
+        movePlayedTilesUponLoad()
         UserDefaultsHelper().saveGameContext()
     }
     
@@ -284,17 +285,24 @@ class GamePlayViewController: UIViewController {
                 tileButton.bringSubview(toFront: gamePlayView)
                 i += 1
             }
-        } else {
-            print("tileButtons.count: \(tileButtons.count)")
-            for i in 0..<tileButtons.count {
-                if GameLevel.tileInPlay[i] == true {
-                    tileButtons[i].center = self.answerPositions[i]
-                } else {
-                    tileButtons[i].center = self.tileOriginalPositions[i]
-                }
-            }
         }
         UserDefaultsHelper().saveGameContext()
+    }
+    
+    // MOVE PLAYED TILES UPON LOAD
+    func movePlayedTilesUponLoad() {
+        if let tileInPlayCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileInPlay.rawValue) as? [Bool] {
+            var i = 0
+            for tileButton in tileButtons {
+                if tileInPlayCheck[i] == true {
+                    print("tileAnswerPositions: \(GameLevel.tileAnswerPositions)")
+                    print("answerPositions: \(self.answerPositions)")
+                    let position = GameLevel.tileAnswerPositions[i] - 1
+                    tileButton.center = self.answerPositions[position]
+                }
+                i += 1
+            }
+        }
     }
     
     // SETUP RUBY COUNTER

@@ -6,8 +6,6 @@
 //  Copyright © 2017 App Volks. All rights reserved.
 //
 
-// NOTE: Use this to save data to UD and to get data from randomRubyJsonData.  Call these functions in GamePlayViewController.  Possibly reference the GameLevelStruct for simplicity.
-
 import Foundation
 import UIKit
 
@@ -80,37 +78,22 @@ class UserDefaultsHelper {
     // SAVE ACTIVE GAME CONTEXT
     func saveGameContext() {
         UserDefaults.standard.set(GameLevel.tilesExist, forKey: GameLevel.Key.tilesExist.rawValue)
-//        print("rubyCount Saved")
         UserDefaults.standard.set(GameLevel.rubyCount, forKey: GameLevel.Key.rubyCount.rawValue)
-//        print("rubyCount Saved")
         UserDefaults.standard.set(GameLevel.currentLevel, forKey: GameLevel.Key.currentLevel.rawValue)
-//        print("currentLevel Saved")
         UserDefaults.standard.set(GameLevel.currentGameState, forKey: GameLevel.Key.currentGameState.rawValue)
-//        print("currentGameState Saved")
         UserDefaults.standard.set(GameLevel.comments, forKey: GameLevel.Key.comments.rawValue)
-//        print("comments Saved")
         UserDefaults.standard.set(GameLevel.tileContents, forKey: GameLevel.Key.tileContents.rawValue)
-//        print("tileContents Saved")
         UserDefaults.standard.set(GameLevel.correctTiles, forKey: GameLevel.Key.correctTiles.rawValue)
-//        print("correctTilesSaved")
         UserDefaults.standard.set(GameLevel.incorrectTiles, forKey: GameLevel.Key.incorrectTiles.rawValue)
-//        print("incorrectTiles Saved")
         UserDefaults.standard.set(GameLevel.answer, forKey: GameLevel.Key.answer.rawValue)
-//        print("answer Saved")
         UserDefaults.standard.set(GameLevel.removeCount, forKey: GameLevel.Key.removeCount.rawValue)
-//        print("removeCount Saved")
         UserDefaults.standard.set(GameLevel.tileInPlay, forKey: GameLevel.Key.tileInPlay.rawValue)
-//        print("tileInPlay Saved")
         UserDefaults.standard.set(GameLevel.tileAnswerPositions, forKey: GameLevel.Key.tileAnswerPositions.rawValue)
-//        print("tileAnswerPositions Saved")
         UserDefaults.standard.set(GameLevel.existingAnswerTiles, forKey: GameLevel.Key.existingAnswerTiles.rawValue)
-//        print("tileInPlay Saved")
         UserDefaults.standard.set(GameLevel.solutionGuess, forKey: GameLevel.Key.solutionGuess.rawValue)
-//        print("solutionGuess Saved")
         UserDefaults.standard.set(GameLevel.answerTileExists, forKey: GameLevel.Key.answerTileExists.rawValue)
-//        print("answerTileExists Saved")
         UserDefaults.standard.set(GameLevel.answerCount, forKey: GameLevel.Key.answerCount.rawValue)
-//        print("answerCount Saved")
+        
 //        var stringOfCGPointArray = [String]()
 //        for tileOriginalPosition in GameLevel.tileOriginPositions {
 //            let stringOfCGPoint = NSStringFromCGPoint(tileOriginalPosition)
@@ -200,6 +183,5 @@ class UserDefaultsHelper {
 //                }
 //            }
 //        }
-        print("loaded")
     }
 }
