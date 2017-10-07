@@ -74,7 +74,6 @@ class UserDefaultsHelper {
                 }
             }
         }
-        GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
     }
     

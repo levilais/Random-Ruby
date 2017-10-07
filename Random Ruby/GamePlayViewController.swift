@@ -46,7 +46,6 @@ class GamePlayViewController: UIViewController {
             UserDefaults.standard.set(GameLevel.firstLoad, forKey: GameLevel.Key.firstLoad.rawValue)
         }
         
-        Utilities().printData()
         setTiles()
         
         let buttons = [rubyCounterButton,askFriendButton,removeButton,revealButton,homeButton,settingsButton]
@@ -61,9 +60,11 @@ class GamePlayViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setRubyCounter()
         
+        print("currentGameState \(GameLevel.currentGameState)")
         if GameLevel.currentGameState == "finishedLevel" {
             setupNextLevelContent()
         }
+        
         setLabels()
         setAnswerSpace()
         UserDefaultsHelper().saveGameContext()
@@ -111,7 +112,6 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-//        Utilities().printData()
     }
     
     @IBAction func solveButtonPressed(_ sender: Any) {
@@ -120,7 +120,6 @@ class GamePlayViewController: UIViewController {
             GameLevel.rubyCount += 4
             GameLevel.currentGameState = "finishedLevel"
             UserDefaultsHelper().saveGameContext()
-//            Utilities().printData()
             performSegue(withIdentifier: "showCorrectView", sender: self)
         } else {
             let messages = ["That's not it - try again!","Oooh...A good guess but no.","Keep guessing!","Incorrect. You'll get it next time!"]
@@ -157,7 +156,6 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-//        Utilities().printData()
     }
     
     @IBAction func revealButtonPressed(_ sender: Any) {
@@ -198,11 +196,9 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-//        Utilities().printData()
     }
     
     func placeTile(tileToMove: Int) {
-        print("answerPositions \(answerPositions)")
         let tileTag = tileToMove
         var i = 0
         if GameLevel.existingAnswerTiles < GameLevel.answerCount {
@@ -223,7 +219,6 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-//        Utilities().printData()
     }
     
     func putTileBack(tileToMove: Int) {
@@ -299,9 +294,7 @@ class GamePlayViewController: UIViewController {
                 }
             }
         }
-        GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-//        Utilities().printData()
     }
     
     // SETUP RUBY COUNTER
