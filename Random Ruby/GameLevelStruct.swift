@@ -32,6 +32,8 @@ class GameLevel {
     static var tileInPlay = [Bool]()
     static var tileAnswerPositions = [Int]()
     static var existingAnswerTiles = 0
+    static var tileRemoved = [Int]()
+    static var tileRevealed = [Int]()
     
     // ANSWER SPACE TRACKERS
     static var solutionGuess = [String]()
@@ -58,5 +60,7 @@ class GameLevel {
         case solutionGuess = "solutionGuess"
         case answerTileExists = "answerTileExists"
         case answerCount = "answerCount"
+        case tileRemoved = "tileRemoved"
+        case tileRevealed = "tileRevealed"
     }
 }

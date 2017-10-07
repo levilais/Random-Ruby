@@ -50,6 +50,8 @@ class UserDefaultsHelper {
                         // TILE CONTENTS
                         GameLevel.tileInPlay = []
                         GameLevel.tileAnswerPositions = []
+                        GameLevel.tileRemoved = []
+                        GameLevel.tileRevealed = []
                         for i in 1...10 {
                             let tile = "t" + String(i)
                             if let tileContent = levelData[tile] as? String {
@@ -93,44 +95,12 @@ class UserDefaultsHelper {
         UserDefaults.standard.set(GameLevel.solutionGuess, forKey: GameLevel.Key.solutionGuess.rawValue)
         UserDefaults.standard.set(GameLevel.answerTileExists, forKey: GameLevel.Key.answerTileExists.rawValue)
         UserDefaults.standard.set(GameLevel.answerCount, forKey: GameLevel.Key.answerCount.rawValue)
-        
-//        var stringOfCGPointArray = [String]()
-//        for tileOriginalPosition in GameLevel.tileOriginPositions {
-//            let stringOfCGPoint = NSStringFromCGPoint(tileOriginalPosition)
-//            stringOfCGPointArray.append(stringOfCGPoint)
-//        }
-//        UserDefaults.standard.set(stringOfCGPointArray, forKey: GameLevel.Key.tileOriginPositions.rawValue)
-//
-//        var stringOfCGPointArray2 = [String]()
-//        for answerPosition in GameLevel.answerPositions {
-//            let stringOfCGPoint = NSStringFromCGPoint(answerPosition)
-//            stringOfCGPointArray2.append(stringOfCGPoint)
-//        }
-//        UserDefaults.standard.set(stringOfCGPointArray2, forKey: GameLevel.Key.answerPositions.rawValue)
-//        print("answerPositions: \(GameLevel.answerPositions)")
-//        print("saved")
+        UserDefaults.standard.set(GameLevel.tileRemoved, forKey: GameLevel.Key.tileRemoved.rawValue)
+        UserDefaults.standard.set(GameLevel.tileRevealed, forKey: GameLevel.Key.tileRevealed.rawValue)
     }
     
     // LOAD ACTIVE GAME CONTEXT
     func loadActiveGameContext() {
-//        if let tileOriginalPointData = UserDefaults.standard.object(forKey: GameLevel.Key.tileOriginPositions.rawValue) as? NSArray {
-//            if GameLevel.tileOriginPositions.count < 10 {
-//                var i = 0
-//                for tileOriginalPoint in tileOriginalPointData {
-//                    let point = CGPointFromString(tileOriginalPoint as! String)
-//                    GameLevel.tileOriginPositions.append(point)
-//                    i += 1
-//                }
-//            } else {
-//                var i = 0
-//                for tileOriginalPoint in tileOriginalPointData {
-//                    let point = CGPointFromString(tileOriginalPoint as! String)
-//                    GameLevel.tileOriginPositions[i] = point
-//                    i += 1
-//                }
-//            }
-//        }
-        
         if let rubyCountCheck = UserDefaults.standard.object(forKey: GameLevel.Key.rubyCount.rawValue),
             let tileAnswerPositionsCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileAnswerPositions.rawValue),
             let tilesExistCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tilesExist.rawValue),
@@ -146,7 +116,9 @@ class UserDefaultsHelper {
             let existingAnswerTilesCheck = UserDefaults.standard.object(forKey: GameLevel.Key.existingAnswerTiles.rawValue),
             let solutionGuessCheck = UserDefaults.standard.object(forKey: GameLevel.Key.solutionGuess.rawValue),
             let answerTileExistsCheck = UserDefaults.standard.object(forKey: GameLevel.Key.answerTileExists.rawValue),
-            let answerCountCheck = UserDefaults.standard.object(forKey: GameLevel.Key.answerCount.rawValue)
+            let answerCountCheck = UserDefaults.standard.object(forKey: GameLevel.Key.answerCount.rawValue),
+            let tileRemovedCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileRemoved.rawValue),
+            let tileRevealedCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileRevealed.rawValue)
         {
             GameLevel.tileAnswerPositions = tileAnswerPositionsCheck as! [Int]
             GameLevel.rubyCount = rubyCountCheck as! Int
@@ -164,24 +136,8 @@ class UserDefaultsHelper {
             GameLevel.solutionGuess = solutionGuessCheck as! [String]
             GameLevel.answerTileExists = answerTileExistsCheck as! [Bool]
             GameLevel.answerCount = answerCountCheck as! Int
+            GameLevel.tileRemoved = tileRemovedCheck as! [Int]
+            GameLevel.tileRevealed = tileRevealedCheck as! [Int]
         }
-        
-//        if let answerPositions = UserDefaults.standard.object(forKey: GameLevel.Key.answerPositions.rawValue) as? NSArray {
-//            if GameLevel.answerPositions.count != GameLevel.answerCount {
-//                var i = 0
-//                for answerPosition in answerPositions {
-//                    let point = CGPointFromString(answerPosition as! String)
-//                    GameLevel.answerPositions.append(point)
-//                    i += 1
-//                }
-//            } else {
-//                var i = 0
-//                for answerPosition in answerPositions {
-//                    let point = CGPointFromString(answerPosition as! String)
-//                    GameLevel.answerPositions[i] = point
-//                    i += 1
-//                }
-//            }
-//        }
     }
 }

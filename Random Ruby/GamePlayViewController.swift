@@ -137,14 +137,11 @@ class GamePlayViewController: UIViewController {
                 var removeItemFound = false
                 while removeItemFound == false {
                     if GameLevel.tileContents[i] == tileToRemove {
-                        tileButtons[i].isHidden = true
                         removeItemFound = true
                         let tile = tileButtons[i]
                         let tag = tile.tag
-                        if GameLevel.tileInPlay[tag] != false {
-                            // PUT TILE BACK
-                            putTileBack(tileToMove: tag)
-                        }
+                        removeTile(tag: tag)
+                        GameLevel.tileRemoved.append(tag)
                         GameLevel.rubyCount -= 4
                         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                     }
@@ -157,6 +154,14 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
+        print("tileRemoved: \(GameLevel.tileRemoved)")
+    }
+    
+    func removeTile(tag: Int) {
+        tileButtons[tag].isHidden = true
+        if GameLevel.tileInPlay[tag] != false {
+            putTileBack(tileToMove: tag)
+        }
     }
     
     @IBAction func revealButtonPressed(_ sender: Any) {
@@ -180,8 +185,10 @@ class GamePlayViewController: UIViewController {
                                 let tile = tileButtons[i2]
                                 let tag = tile.tag
                                 placeTile(tileToMove: tag)
-                                tileButtons[tag].isUserInteractionEnabled = false
-                                tileButtons[tag].setTitleColor(UIColor(red: 208/255.0, green: 1/255.0, blue: 27/255.0, alpha: 1.0), for: .normal)
+                                lockRevealedTile(tag: tag)
+                                
+                                GameLevel.tileRevealed.append(tag)
+                                
                                 GameLevel.rubyCount -= 4
                                 Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                             }
@@ -197,6 +204,12 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
+        print("tileRevealed: \(GameLevel.tileRevealed)")
+    }
+    
+    func lockRevealedTile(tag: Int) {
+        tileButtons[tag].isUserInteractionEnabled = false
+        tileButtons[tag].setTitleColor(UIColor(red: 208/255.0, green: 1/255.0, blue: 27/255.0, alpha: 1.0), for: .normal)
     }
     
     func placeTile(tileToMove: Int) {
@@ -301,6 +314,24 @@ class GamePlayViewController: UIViewController {
                     tileButton.center = self.answerPositions[position]
                 }
                 i += 1
+            }
+        }
+        if let tileRemovedCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileRemoved.rawValue) as? [Int] {
+            GameLevel.tileRemoved = tileRemovedCheck
+            print("Downloaded tileRemoved: \(GameLevel.tileRemoved)")
+            if tileRemovedCheck != [] {
+                for tile in tileRemovedCheck {
+                    removeTile(tag: tile)
+                }
+            }
+        }
+        if let tileRevealedCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileRevealed.rawValue) as? [Int] {
+            GameLevel.tileRevealed = tileRevealedCheck
+            print("Downloaded tileRevealed: \(GameLevel.tileRevealed)")
+            if tileRevealedCheck != [] {
+                for tile in tileRevealedCheck {
+                    lockRevealedTile(tag: tile)
+                }
             }
         }
     }
