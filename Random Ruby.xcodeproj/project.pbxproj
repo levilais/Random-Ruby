@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043632321F8976DC006B5EF6 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0436322F1F8976DB006B5EF6 /* FBSDKShareKit.framework */; };
+		043632331F8976DC006B5EF6 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043632301F8976DB006B5EF6 /* FBSDKLoginKit.framework */; };
+		043632341F8976DC006B5EF6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043632311F8976DC006B5EF6 /* FBSDKCoreKit.framework */; };
+		043632361F898653006B5EF6 /* FacebookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043632351F898653006B5EF6 /* FacebookHelper.swift */; };
 		045564F51F72CE500032FF99 /* CorrectPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045564F41F72CE500032FF99 /* CorrectPopoverViewController.swift */; };
 		0459AD911F76069400417D95 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459AD901F76069400417D95 /* UserDefaultsHelper.swift */; };
 		04A0371B1F77054200B5CC8F /* GameLevelStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0371A1F77054200B5CC8F /* GameLevelStruct.swift */; };
@@ -21,6 +25,7 @@
 		04D703651F6B5B78005B5040 /* GamePlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D703641F6B5B78005B5040 /* GamePlayViewController.swift */; };
 		04E7ACC21F72DE530044F38D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E7ACC11F72DE530044F38D /* Main.storyboard */; };
 		04E7ACC61F7333F80044F38D /* randomRubyJsonData.json in Resources */ = {isa = PBXBuildFile; fileRef = 04E7ACC51F7333F80044F38D /* randomRubyJsonData.json */; };
+		04E99EA81F8972E500C5180B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E99EA71F8972E500C5180B /* SettingsViewController.swift */; };
 		04F99C651F72D253003D0CD7 /* Ranchers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */; };
 		04F99C661F72D253003D0CD7 /* Ranchers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */; };
 		04F99C671F72D253003D0CD7 /* Ranchers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */; };
@@ -44,6 +49,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0436322F1F8976DB006B5EF6 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		043632301F8976DB006B5EF6 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		043632311F8976DC006B5EF6 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		043632351F898653006B5EF6 /* FacebookHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookHelper.swift; sourceTree = "<group>"; };
 		045564F41F72CE500032FF99 /* CorrectPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectPopoverViewController.swift; sourceTree = "<group>"; };
 		0459AD901F76069400417D95 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		04A0371A1F77054200B5CC8F /* GameLevelStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStruct.swift; sourceTree = "<group>"; };
@@ -64,6 +73,8 @@
 		04D703641F6B5B78005B5040 /* GamePlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayViewController.swift; sourceTree = "<group>"; };
 		04E7ACC11F72DE530044F38D /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		04E7ACC51F7333F80044F38D /* randomRubyJsonData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = randomRubyJsonData.json; path = ../../Data/randomRubyJsonData.json; sourceTree = "<group>"; };
+		04E99EA61F89707100C5180B /* Random Ruby.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Random Ruby.entitlements"; sourceTree = "<group>"; };
+		04E99EA71F8972E500C5180B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ranchers-Regular.ttf"; path = "../../../Fonts/Ranchers-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +83,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043632331F8976DC006B5EF6 /* FBSDKLoginKit.framework in Frameworks */,
+				043632341F8976DC006B5EF6 /* FBSDKCoreKit.framework in Frameworks */,
+				043632321F8976DC006B5EF6 /* FBSDKShareKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +121,7 @@
 				04D7034A1F6B5B22005B5040 /* Random RubyTests */,
 				04D703551F6B5B22005B5040 /* Random RubyUITests */,
 				04D703311F6B5B22005B5040 /* Products */,
+				04E99EAF1F89769600C5180B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,14 +138,17 @@
 		04D703321F6B5B22005B5040 /* Random Ruby */ = {
 			isa = PBXGroup;
 			children = (
+				04E99EA61F89707100C5180B /* Random Ruby.entitlements */,
 				045564F61F72D0810032FF99 /* Fonts */,
 				04D703331F6B5B22005B5040 /* AppDelegate.swift */,
 				04D703641F6B5B78005B5040 /* GamePlayViewController.swift */,
 				045564F41F72CE500032FF99 /* CorrectPopoverViewController.swift */,
 				04D28FA51F756D1C00C76003 /* HomeViewController.swift */,
+				04E99EA71F8972E500C5180B /* SettingsViewController.swift */,
 				04A0371A1F77054200B5CC8F /* GameLevelStruct.swift */,
 				0459AD901F76069400417D95 /* UserDefaultsHelper.swift */,
 				04D2B8F51F7086E10024382D /* Utilities.swift */,
+				043632351F898653006B5EF6 /* FacebookHelper.swift */,
 				04E7ACC51F7333F80044F38D /* randomRubyJsonData.json */,
 				04D7033D1F6B5B22005B5040 /* Assets.xcassets */,
 				04D7033F1F6B5B22005B5040 /* LaunchScreen.storyboard */,
@@ -157,6 +175,16 @@
 				04D703581F6B5B22005B5040 /* Info.plist */,
 			);
 			path = "Random RubyUITests";
+			sourceTree = "<group>";
+		};
+		04E99EAF1F89769600C5180B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				043632311F8976DC006B5EF6 /* FBSDKCoreKit.framework */,
+				043632301F8976DB006B5EF6 /* FBSDKLoginKit.framework */,
+				0436322F1F8976DB006B5EF6 /* FBSDKShareKit.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,11 +250,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "App Volks";
 				TargetAttributes = {
 					04D7032F1F6B5B22005B5040 = {
 						CreatedOnToolsVersion = 9.0;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					04D703461F6B5B22005B5040 = {
 						CreatedOnToolsVersion = 9.0;
@@ -299,9 +332,11 @@
 				0459AD911F76069400417D95 /* UserDefaultsHelper.swift in Sources */,
 				045564F51F72CE500032FF99 /* CorrectPopoverViewController.swift in Sources */,
 				04D2B8F61F7086E10024382D /* Utilities.swift in Sources */,
+				043632361F898653006B5EF6 /* FacebookHelper.swift in Sources */,
 				04D703341F6B5B22005B5040 /* AppDelegate.swift in Sources */,
 				04D28FA61F756D1C00C76003 /* HomeViewController.swift in Sources */,
 				04A0371B1F77054200B5CC8F /* GameLevelStruct.swift in Sources */,
+				04E99EA81F8972E500C5180B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +403,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -380,6 +417,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -423,6 +461,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -435,6 +475,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -455,7 +496,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Random Ruby/Random Ruby.entitlements";
 				DEVELOPMENT_TEAM = 556T3TQRKM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"~/Documents/FacebookSDK",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Random Ruby/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AppVolks.Random-Ruby";
@@ -469,7 +517,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Random Ruby/Random Ruby.entitlements";
 				DEVELOPMENT_TEAM = 556T3TQRKM;
+				FRAMEWORK_SEARCH_PATHS = (
+					"~/Documents/FacebookSDK",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Random Ruby/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.AppVolks.Random-Ruby";

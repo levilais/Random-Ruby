@@ -18,7 +18,6 @@ class HomeViewController: UIViewController {
         Utilities().setButtonShadow(button: playButton)
         if let currentGameStateCheck = UserDefaults.standard.object(forKey: GameLevel.Key.currentGameState.rawValue) {
             GameLevel.currentGameState = currentGameStateCheck as! String
-            print("This is the currentGameState upon load: \(GameLevel.currentGameState)")
         }
     }
     

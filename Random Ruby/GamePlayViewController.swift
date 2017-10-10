@@ -8,6 +8,10 @@
 
 import UIKit
 import GameKit
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FBSDKShareKit
+import Social
 
 class GamePlayViewController: UIViewController {
     
@@ -33,7 +37,6 @@ class GamePlayViewController: UIViewController {
         super.viewDidLoad()
         if let firstLoadCheck = UserDefaults.standard.object(forKey: GameLevel.Key.firstLoad.rawValue) as? Bool {
             if firstLoadCheck == true {
-                print("worked")
                 UserDefaultsHelper().loadNextLevelContent()
                 GameLevel.firstLoad = false
                 UserDefaults.standard.set(GameLevel.firstLoad, forKey: GameLevel.Key.firstLoad.rawValue)
@@ -48,7 +51,7 @@ class GamePlayViewController: UIViewController {
         
         setTiles()
         
-        let buttons = [rubyCounterButton,askFriendButton,removeButton,revealButton,homeButton,settingsButton]
+        let buttons = [rubyCounterButton,askFriendButton,removeButton,revealButton,homeButton,settingsButton,solveButton]
         for button in buttons {
             if let buttonUnwrapped = button {
                 Utilities().setButtonShadow(button: buttonUnwrapped)
@@ -60,7 +63,6 @@ class GamePlayViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setRubyCounter()
         
-        print("currentGameState \(GameLevel.currentGameState)")
         if GameLevel.currentGameState == "finishedLevel" {
             setupNextLevelContent()
         }
@@ -99,6 +101,46 @@ class GamePlayViewController: UIViewController {
     }
     
     // ACTIONS
+    @IBAction func facebookButton(_ sender: Any) {
+        if(FBSDKAccessToken.current() != nil) {
+            let url = URL(string: "fbauth2://")
+            if UIApplication.shared.canOpenURL(url!) {
+                let screen = UIScreen.main
+                if let window = UIApplication.shared.keyWindow {
+                    UIGraphicsBeginImageContextWithOptions(screen.bounds.size, false, 0)
+                    window.drawHierarchy(in: window.bounds, afterScreenUpdates: false)
+                    let image = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
+
+                    let photo: FBSDKSharePhoto = FBSDKSharePhoto()
+                    photo.image = image
+                    photo.isUserGenerated = false
+
+                    let content: FBSDKSharePhotoContent = FBSDKSharePhotoContent()
+                    content.photos = [photo]
+                
+                    let dialog: FBSDKShareDialog = FBSDKShareDialog()
+                    dialog.fromViewController = self
+                    dialog.shareContent = content
+                    dialog.mode = FBSDKShareDialogMode.shareSheet
+                    dialog.show()
+                    print("tried shareSheet")
+                }
+            } else {
+                let alert = UIAlertController(title: "Facebook App Missing", message: "Please download the Facebook App from the App Store and try again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "App Store", style: .default, handler: { (action) in
+                    if let facebookLink: URL = URL(string: "itms-apps://itunes.apple.com/us/app/facebook/id284882215?mt=8") {
+                        UIApplication.shared.open(facebookLink)
+                    }
+                }))
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        } else {
+            FacebookHelper().loginFacebookAction(sender: self)
+        }
+    }
+    
     @IBAction func homeButtonPressed(_ sender: Any) {
         _ = navigationController?.popViewController(animated: true)
     }
@@ -154,7 +196,6 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-        print("tileRemoved: \(GameLevel.tileRemoved)")
     }
     
     func removeTile(tag: Int) {
@@ -204,7 +245,6 @@ class GamePlayViewController: UIViewController {
         }
         GameLevel.currentGameState = "activeLevel"
         UserDefaultsHelper().saveGameContext()
-        print("tileRevealed: \(GameLevel.tileRevealed)")
     }
     
     func lockRevealedTile(tag: Int) {
@@ -308,8 +348,6 @@ class GamePlayViewController: UIViewController {
             var i = 0
             for tileButton in tileButtons {
                 if tileInPlayCheck[i] == true {
-                    print("tileAnswerPositions: \(GameLevel.tileAnswerPositions)")
-                    print("answerPositions: \(self.answerPositions)")
                     let position = GameLevel.tileAnswerPositions[i] - 1
                     tileButton.center = self.answerPositions[position]
                 }
@@ -318,7 +356,6 @@ class GamePlayViewController: UIViewController {
         }
         if let tileRemovedCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileRemoved.rawValue) as? [Int] {
             GameLevel.tileRemoved = tileRemovedCheck
-            print("Downloaded tileRemoved: \(GameLevel.tileRemoved)")
             if tileRemovedCheck != [] {
                 for tile in tileRemovedCheck {
                     removeTile(tag: tile)
@@ -327,7 +364,6 @@ class GamePlayViewController: UIViewController {
         }
         if let tileRevealedCheck = UserDefaults.standard.object(forKey: GameLevel.Key.tileRevealed.rawValue) as? [Int] {
             GameLevel.tileRevealed = tileRevealedCheck
-            print("Downloaded tileRevealed: \(GameLevel.tileRevealed)")
             if tileRevealedCheck != [] {
                 for tile in tileRevealedCheck {
                     lockRevealedTile(tag: tile)
