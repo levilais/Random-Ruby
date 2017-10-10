@@ -103,39 +103,7 @@ class GamePlayViewController: UIViewController {
     // ACTIONS
     @IBAction func facebookButton(_ sender: Any) {
         if(FBSDKAccessToken.current() != nil) {
-            let url = URL(string: "fbauth2://")
-            if UIApplication.shared.canOpenURL(url!) {
-                let screen = UIScreen.main
-                if let window = UIApplication.shared.keyWindow {
-                    UIGraphicsBeginImageContextWithOptions(screen.bounds.size, false, 0)
-                    window.drawHierarchy(in: window.bounds, afterScreenUpdates: false)
-                    let image = UIGraphicsGetImageFromCurrentImageContext()
-                    UIGraphicsEndImageContext()
-
-                    let photo: FBSDKSharePhoto = FBSDKSharePhoto()
-                    photo.image = image
-                    photo.isUserGenerated = false
-
-                    let content: FBSDKSharePhotoContent = FBSDKSharePhotoContent()
-                    content.photos = [photo]
-                
-                    let dialog: FBSDKShareDialog = FBSDKShareDialog()
-                    dialog.fromViewController = self
-                    dialog.shareContent = content
-                    dialog.mode = FBSDKShareDialogMode.shareSheet
-                    dialog.show()
-                    print("tried shareSheet")
-                }
-            } else {
-                let alert = UIAlertController(title: "Facebook App Missing", message: "Please download the Facebook App from the App Store and try again.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "App Store", style: .default, handler: { (action) in
-                    if let facebookLink: URL = URL(string: "itms-apps://itunes.apple.com/us/app/facebook/id284882215?mt=8") {
-                        UIApplication.shared.open(facebookLink)
-                    }
-                }))
-                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            }
+            FacebookHelper().shareOnFB(vc: self)
         } else {
             FacebookHelper().loginFacebookAction(sender: self)
         }

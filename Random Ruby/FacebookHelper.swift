@@ -40,34 +40,39 @@ class FacebookHelper {
         }
     }
     
-//    func postPhoto(sender: UIButton) {
-//        let screen = UIScreen.main
-//        
-//        if let window = UIApplication.shared.keyWindow {
-//            UIGraphicsBeginImageContextWithOptions(screen.bounds.size, false, 0)
-//            window.drawHierarchy(in: window.bounds, afterScreenUpdates: false)
-//            let image = UIGraphicsGetImageFromCurrentImageContext()
-//            UIGraphicsEndImageContext()
-//            print("window was created")
-//            
-//            let photo: FBSDKSharePhoto = FBSDKSharePhoto()
-//            photo.image = image
-//            photo.isUserGenerated = false
-//            
-//            let content: FBSDKSharePhotoContent = FBSDKSharePhotoContent()
-//            content.photos = [photo]
-//            
-//            let dialog: FBSDKShareDialog = FBSDKShareDialog()
-//            dialog.fromViewController = sender
-//            dialog.shareContent = content
-//            dialog.mode = FBSDKShareDialogMode.shareSheet
-//            dialog.show()
-//            
-//        } else {
-//            print("didn't work - should be showing alert")
-//            let alert = UIAlertController(title: "Something went wrong", message: "Random Ruby was unable to capture a screenshot to post to Facebook.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            sender.present(alert, animated: true, completion: nil)
-//        }
-//    }
+    func shareOnFB(vc: UIViewController) {
+        let url = URL(string: "fbauth2://")
+        if UIApplication.shared.canOpenURL(url!) {
+            let screen = UIScreen.main
+            if let window = UIApplication.shared.keyWindow {
+                UIGraphicsBeginImageContextWithOptions(screen.bounds.size, false, 0)
+                window.drawHierarchy(in: window.bounds, afterScreenUpdates: false)
+                let image = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                let photo: FBSDKSharePhoto = FBSDKSharePhoto()
+                photo.image = image
+                photo.isUserGenerated = false
+                
+                let content: FBSDKSharePhotoContent = FBSDKSharePhotoContent()
+                content.photos = [photo]
+                
+                let dialog: FBSDKShareDialog = FBSDKShareDialog()
+                dialog.fromViewController = vc
+                dialog.shareContent = content
+                dialog.mode = FBSDKShareDialogMode.shareSheet
+                dialog.show()
+                print("tried shareSheet")
+            }
+        } else {
+            let alert = UIAlertController(title: "Facebook App Missing", message: "Please download the Facebook App from the App Store and try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "App Store", style: .default, handler: { (action) in
+                if let facebookLink: URL = URL(string: "itms-apps://itunes.apple.com/us/app/facebook/id284882215?mt=8") {
+                    UIApplication.shared.open(facebookLink)
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+            vc.present(alert, animated: true, completion: nil)
+        }
+    }
 }
