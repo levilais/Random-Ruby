@@ -14,10 +14,7 @@ class Utilities {
     // GET MATH TO ADJUST DISPLAY FOR SCREEN SIZE OF DEVICE
     func screenBasedFontSize(minimumFontSize: CGFloat) -> CGFloat {
         let screen = UIScreen.main
-        var newFontSize = screen.bounds.size.height * (minimumFontSize / 568.0)
-        if (screen.bounds.size.height < 500) {
-            newFontSize = screen.bounds.size.height * (minimumFontSize / 480.0)
-        }
+        let newFontSize = screen.bounds.size.width * (minimumFontSize / 320.0)
         return newFontSize
     }
     
