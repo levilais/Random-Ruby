@@ -29,17 +29,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="largeRubyImage" translatesAutoresizingMaskIntoConstraints="NO" id="fxB-Gl-K62">
-                                <rect key="frame" x="87.666666666666686" y="306" width="200" height="200"/>
+                                <rect key="frame" x="63.333333333333343" y="281.66666666666669" width="249.00000000000003" height="249.00000000000006"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="j6y-hp-b5g"/>
-                                    <constraint firstAttribute="width" constant="200" id="v8h-wq-RDT"/>
+                                    <constraint firstAttribute="height" constant="249" id="j6y-hp-b5g"/>
+                                    <constraint firstAttribute="width" constant="249" id="v8h-wq-RDT"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJG-fF-4GV">
-                                <rect key="frame" x="127.66666666666669" y="514" width="120" height="31"/>
+                                <rect key="frame" x="103.66666666666669" y="546.66666666666663" width="168" height="43"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="2BP-Ee-Nld"/>
-                                    <constraint firstAttribute="height" constant="31" id="d1y-a8-rj6"/>
+                                    <constraint firstAttribute="width" constant="168" id="2BP-Ee-Nld"/>
+                                    <constraint firstAttribute="height" constant="43" id="d1y-a8-rj6"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="playButton"/>
                                 <connections>
@@ -48,10 +48,10 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="randomRubyTitle" translatesAutoresizingMaskIntoConstraints="NO" id="iAU-5Y-zjf">
-                                <rect key="frame" x="98" y="205" width="179" height="93"/>
+                                <rect key="frame" x="74.666666666666686" y="156.66666666666666" width="226" height="116.99999999999997"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="93" id="gcw-iB-V8G"/>
-                                    <constraint firstAttribute="width" constant="179" id="vNs-Ww-Rn9"/>
+                                    <constraint firstAttribute="height" constant="117" id="gcw-iB-V8G"/>
+                                    <constraint firstAttribute="width" constant="226" id="vNs-Ww-Rn9"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -61,7 +61,7 @@
                             <constraint firstItem="fxB-Gl-K62" firstAttribute="centerX" secondItem="tTO-w1-Lja" secondAttribute="centerX" id="TS8-vV-1uF"/>
                             <constraint firstItem="xJG-fF-4GV" firstAttribute="centerX" secondItem="tTO-w1-Lja" secondAttribute="centerX" id="Tfg-dN-aBZ"/>
                             <constraint firstItem="iAU-5Y-zjf" firstAttribute="centerX" secondItem="tTO-w1-Lja" secondAttribute="centerX" id="ZvW-b1-hgd"/>
-                            <constraint firstItem="xJG-fF-4GV" firstAttribute="top" secondItem="fxB-Gl-K62" secondAttribute="bottom" constant="8" id="eEx-tl-XZe"/>
+                            <constraint firstItem="xJG-fF-4GV" firstAttribute="top" secondItem="fxB-Gl-K62" secondAttribute="bottom" constant="16" id="eEx-tl-XZe"/>
                             <constraint firstItem="fxB-Gl-K62" firstAttribute="top" secondItem="iAU-5Y-zjf" secondAttribute="bottom" constant="8" id="kR1-yL-JbP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="tTO-w1-Lja"/>
@@ -555,17 +555,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="largeRubyImage" translatesAutoresizingMaskIntoConstraints="NO" id="Ehv-Bp-Usa">
-                                <rect key="frame" x="87.666666666666686" y="306" width="200" height="200"/>
+                                <rect key="frame" x="63.333333333333343" y="281.66666666666669" width="249.00000000000003" height="249.00000000000006"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="aoj-KN-fhf"/>
-                                    <constraint firstAttribute="width" constant="200" id="qwQ-gs-nGF"/>
+                                    <constraint firstAttribute="height" constant="249" id="aoj-KN-fhf"/>
+                                    <constraint firstAttribute="width" constant="249" id="qwQ-gs-nGF"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enE-u4-RLz">
-                                <rect key="frame" x="127.66666666666669" y="514" width="120" height="31"/>
+                                <rect key="frame" x="103.66666666666669" y="547.66666666666663" width="168" height="43"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="7QN-1v-wWg"/>
-                                    <constraint firstAttribute="width" constant="120" id="CXD-aT-beF"/>
+                                    <constraint firstAttribute="height" constant="43" id="7QN-1v-wWg"/>
+                                    <constraint firstAttribute="width" constant="168" id="CXD-aT-beF"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="nextButton"/>
                                 <connections>
@@ -573,14 +573,14 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus4RubiesImage" translatesAutoresizingMaskIntoConstraints="NO" id="7qq-oY-3iT">
-                                <rect key="frame" x="147.66666666666666" y="270" width="80" height="28"/>
+                                <rect key="frame" x="147.66666666666666" y="245.66666666666663" width="80" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="nrv-Rs-uSv"/>
                                     <constraint firstAttribute="width" constant="80" id="qId-dR-1ax"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correct!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7S5-zJ-NAe">
-                                <rect key="frame" x="101.33333333333333" y="198" width="172.66666666666669" height="56"/>
+                                <rect key="frame" x="112.33333333333333" y="169.66666666666666" width="150.66666666666669" height="60"/>
                                 <fontDescription key="fontDescription" name="Ranchers-Regular" family="Ranchers" pointSize="48"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -593,7 +593,7 @@
                             <constraint firstItem="7qq-oY-3iT" firstAttribute="centerX" secondItem="baP-lj-lnX" secondAttribute="centerX" id="Dvo-l5-aeP"/>
                             <constraint firstItem="Ehv-Bp-Usa" firstAttribute="top" secondItem="7qq-oY-3iT" secondAttribute="bottom" constant="8" id="Ioz-Yj-A98"/>
                             <constraint firstItem="7S5-zJ-NAe" firstAttribute="centerX" secondItem="baP-lj-lnX" secondAttribute="centerX" id="JIs-9r-5af"/>
-                            <constraint firstItem="enE-u4-RLz" firstAttribute="top" secondItem="Ehv-Bp-Usa" secondAttribute="bottom" constant="8" id="ciU-m9-v1I"/>
+                            <constraint firstItem="enE-u4-RLz" firstAttribute="top" secondItem="Ehv-Bp-Usa" secondAttribute="bottom" constant="17" id="ciU-m9-v1I"/>
                             <constraint firstItem="Ehv-Bp-Usa" firstAttribute="centerY" secondItem="lBK-o8-hBF" secondAttribute="centerY" id="fwU-ru-fri"/>
                             <constraint firstItem="7qq-oY-3iT" firstAttribute="top" secondItem="7S5-zJ-NAe" secondAttribute="bottom" constant="16" id="ynu-7o-dSZ"/>
                         </constraints>
@@ -632,12 +632,12 @@
         <image name="emptyTile" width="279" height="279"/>
         <image name="facebookGetHelpButton" width="999" height="279"/>
         <image name="homeIcon" width="144" height="144"/>
-        <image name="largeRubyImage" width="1764" height="1764"/>
+        <image name="largeRubyImage" width="2466" height="2466"/>
         <image name="navTitleImage" width="495" height="234"/>
-        <image name="nextButton" width="1080" height="279"/>
-        <image name="playButton" width="1080" height="279"/>
+        <image name="nextButton" width="1512" height="387"/>
+        <image name="playButton" width="1512" height="387"/>
         <image name="plus4RubiesImage" width="702" height="207"/>
-        <image name="randomRubyTitle" width="1629" height="792"/>
+        <image name="randomRubyTitle" width="2070" height="1008"/>
         <image name="removeLetterButton" width="999" height="279"/>
         <image name="revealLetterButton" width="999" height="279"/>
         <image name="rubyCounter" width="738" height="207"/>
