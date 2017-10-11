@@ -28,6 +28,7 @@ class GamePlayViewController: UIViewController {
     @IBOutlet weak var solveButton: UIButton!
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var levelLabel: UILabel!
     
     var tileButtons = [UIButton]()
     var tileOriginalPositions = [CGPoint]()
@@ -61,7 +62,7 @@ class GamePlayViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        setRubyCounter()
+        setHeaderContent()
         
         if GameLevel.currentGameState == "finishedLevel" {
             setupNextLevelContent()
@@ -152,7 +153,7 @@ class GamePlayViewController: UIViewController {
                         let tag = tile.tag
                         removeTile(tag: tag)
                         GameLevel.tileRemoved.append(tag)
-                        GameLevel.rubyCount -= 4
+                        GameLevel.rubyCount -= 3
                         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                     }
                     i += 1
@@ -198,7 +199,7 @@ class GamePlayViewController: UIViewController {
                                 
                                 GameLevel.tileRevealed.append(tag)
                                 
-                                GameLevel.rubyCount -= 4
+                                GameLevel.rubyCount -= 5
                                 Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
                             }
                             i2 += 1
@@ -341,9 +342,10 @@ class GamePlayViewController: UIViewController {
     }
     
     // SETUP RUBY COUNTER
-    func setRubyCounter() {
+    func setHeaderContent() {
         // SETUP DISPLAY
         rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
+        levelLabel.text = "Level: \(GameLevel.currentLevel + 1)"
     }
     
     // SETUP COMMENT LABELS

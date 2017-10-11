@@ -335,24 +335,26 @@
                                             </segue>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="navTitleImage" translatesAutoresizingMaskIntoConstraints="NO" id="gFw-CH-pcT">
-                                        <rect key="frame" x="133" y="6" width="54" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level:  300" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QF9-mL-JLE">
+                                        <rect key="frame" x="100" y="8" width="120" height="23.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="54" id="GYp-zH-XbD"/>
-                                            <constraint firstAttribute="height" constant="28" id="LAZ-11-zan"/>
+                                            <constraint firstAttribute="width" constant="120" id="m9Z-Ci-fLK"/>
                                         </constraints>
-                                    </imageView>
+                                        <fontDescription key="fontDescription" name="Ranchers-Regular" family="Ranchers" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.26600000000000001" green="0.57379999999999998" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="gFw-CH-pcT" firstAttribute="centerY" secondItem="i0K-ym-yyf" secondAttribute="centerY" id="4LN-1D-jAN"/>
                                     <constraint firstAttribute="trailing" secondItem="u5G-Mv-mrP" secondAttribute="trailing" constant="8" id="9NI-It-mBV"/>
                                     <constraint firstItem="U4i-oM-0bL" firstAttribute="centerY" secondItem="i0K-ym-yyf" secondAttribute="centerY" id="9Uk-4q-kMU"/>
                                     <constraint firstItem="U4i-oM-0bL" firstAttribute="leading" secondItem="i0K-ym-yyf" secondAttribute="leading" constant="8" id="PzZ-G4-Yl6"/>
-                                    <constraint firstItem="gFw-CH-pcT" firstAttribute="centerX" secondItem="i0K-ym-yyf" secondAttribute="centerX" id="XbC-4a-K2u"/>
                                     <constraint firstAttribute="height" constant="40" id="YNw-3b-ug4"/>
                                     <constraint firstItem="7Rs-gL-LXL" firstAttribute="leading" secondItem="U4i-oM-0bL" secondAttribute="trailing" constant="8" id="ZHl-tP-uHO"/>
+                                    <constraint firstItem="QF9-mL-JLE" firstAttribute="centerX" secondItem="dD7-o8-kvz" secondAttribute="centerX" id="bKx-Cz-zTn"/>
                                     <constraint firstItem="u5G-Mv-mrP" firstAttribute="centerY" secondItem="i0K-ym-yyf" secondAttribute="centerY" id="gu8-NN-qTG"/>
+                                    <constraint firstItem="QF9-mL-JLE" firstAttribute="centerY" secondItem="dD7-o8-kvz" secondAttribute="centerY" id="hlC-N7-4ZI"/>
                                     <constraint firstItem="7Rs-gL-LXL" firstAttribute="centerY" secondItem="i0K-ym-yyf" secondAttribute="centerY" id="kwV-gx-Ibp"/>
                                 </constraints>
                                 <viewLayoutGuide key="safeArea" id="dD7-o8-kvz"/>
@@ -478,6 +480,7 @@
                         <outlet property="askFriendButton" destination="SzA-43-AMy" id="noM-hR-NNG"/>
                         <outlet property="gamePlayView" destination="lmb-IP-t3W" id="Smu-bQ-zXj"/>
                         <outlet property="homeButton" destination="U4i-oM-0bL" id="3zb-Lj-pnY"/>
+                        <outlet property="levelLabel" destination="QF9-mL-JLE" id="ifK-EA-eKA"/>
                         <outlet property="messageLabel" destination="aeI-t8-TFK" id="caT-D3-hYU"/>
                         <outlet property="removeButton" destination="kLf-iS-AMO" id="5kb-6v-9td"/>
                         <outlet property="revealButton" destination="Yew-bo-hlU" id="aEf-7D-Nwd"/>
@@ -815,7 +818,6 @@
         <image name="facebookGetHelpButton" width="666" height="186"/>
         <image name="homeIcon" width="96" height="96"/>
         <image name="largeRubyImage" width="1644" height="1644"/>
-        <image name="navTitleImage" width="330" height="156"/>
         <image name="nextButton" width="1008" height="258"/>
         <image name="playButton" width="1008" height="258"/>
         <image name="plus4RubiesImage" width="468" height="138"/>
