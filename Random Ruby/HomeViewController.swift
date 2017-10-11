@@ -18,7 +18,12 @@ class HomeViewController: UIViewController {
         Utilities().setButtonShadow(button: playButton)
         if let currentGameStateCheck = UserDefaults.standard.object(forKey: GameLevel.Key.currentGameState.rawValue) {
             GameLevel.currentGameState = currentGameStateCheck as! String
+            if GameLevel.currentGameState != "firstLoad" {
+                performSegue(withIdentifier: "showGamePlayViewController", sender: self)
+            }
         }
+    }
+    @IBAction func howToPlayButtonPressed(_ sender: Any) {
     }
     
     // ACTIONS

@@ -12,7 +12,10 @@
 		043632341F8976DC006B5EF6 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 043632311F8976DC006B5EF6 /* FBSDKCoreKit.framework */; };
 		043632361F898653006B5EF6 /* FacebookHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043632351F898653006B5EF6 /* FacebookHelper.swift */; };
 		045564F51F72CE500032FF99 /* CorrectPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045564F41F72CE500032FF99 /* CorrectPopoverViewController.swift */; };
+		045818EE1F8D89DD00F675FD /* StoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045818ED1F8D89DD00F675FD /* StoreViewController.swift */; };
 		0459AD911F76069400417D95 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0459AD901F76069400417D95 /* UserDefaultsHelper.swift */; };
+		048500651F8E968700E9C92E /* HowToTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048500641F8E968700E9C92E /* HowToTableViewCell.swift */; };
+		048500671F8E9B1400E9C92E /* facebookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048500661F8E9B1400E9C92E /* facebookTableViewCell.swift */; };
 		04A0371B1F77054200B5CC8F /* GameLevelStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A0371A1F77054200B5CC8F /* GameLevelStruct.swift */; };
 		04D28FA61F756D1C00C76003 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D28FA51F756D1C00C76003 /* HomeViewController.swift */; };
 		04D2B8F61F7086E10024382D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D2B8F51F7086E10024382D /* Utilities.swift */; };
@@ -54,7 +57,10 @@
 		043632311F8976DC006B5EF6 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		043632351F898653006B5EF6 /* FacebookHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookHelper.swift; sourceTree = "<group>"; };
 		045564F41F72CE500032FF99 /* CorrectPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CorrectPopoverViewController.swift; sourceTree = "<group>"; };
+		045818ED1F8D89DD00F675FD /* StoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewController.swift; sourceTree = "<group>"; };
 		0459AD901F76069400417D95 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
+		048500641F8E968700E9C92E /* HowToTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToTableViewCell.swift; sourceTree = "<group>"; };
+		048500661F8E9B1400E9C92E /* facebookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = facebookTableViewCell.swift; sourceTree = "<group>"; };
 		04A0371A1F77054200B5CC8F /* GameLevelStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevelStruct.swift; sourceTree = "<group>"; };
 		04D28FA51F756D1C00C76003 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		04D2B8F51F7086E10024382D /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -145,10 +151,13 @@
 				045564F41F72CE500032FF99 /* CorrectPopoverViewController.swift */,
 				04D28FA51F756D1C00C76003 /* HomeViewController.swift */,
 				04E99EA71F8972E500C5180B /* SettingsViewController.swift */,
+				045818ED1F8D89DD00F675FD /* StoreViewController.swift */,
 				04A0371A1F77054200B5CC8F /* GameLevelStruct.swift */,
 				0459AD901F76069400417D95 /* UserDefaultsHelper.swift */,
 				04D2B8F51F7086E10024382D /* Utilities.swift */,
 				043632351F898653006B5EF6 /* FacebookHelper.swift */,
+				048500661F8E9B1400E9C92E /* facebookTableViewCell.swift */,
+				048500641F8E968700E9C92E /* HowToTableViewCell.swift */,
 				04E7ACC51F7333F80044F38D /* randomRubyJsonData.json */,
 				04D7033D1F6B5B22005B5040 /* Assets.xcassets */,
 				04D7033F1F6B5B22005B5040 /* LaunchScreen.storyboard */,
@@ -329,14 +338,17 @@
 			files = (
 				04D7033C1F6B5B22005B5040 /* Random_Ruby.xcdatamodeld in Sources */,
 				04D703651F6B5B78005B5040 /* GamePlayViewController.swift in Sources */,
+				045818EE1F8D89DD00F675FD /* StoreViewController.swift in Sources */,
 				0459AD911F76069400417D95 /* UserDefaultsHelper.swift in Sources */,
 				045564F51F72CE500032FF99 /* CorrectPopoverViewController.swift in Sources */,
 				04D2B8F61F7086E10024382D /* Utilities.swift in Sources */,
 				043632361F898653006B5EF6 /* FacebookHelper.swift in Sources */,
 				04D703341F6B5B22005B5040 /* AppDelegate.swift in Sources */,
+				048500671F8E9B1400E9C92E /* facebookTableViewCell.swift in Sources */,
 				04D28FA61F756D1C00C76003 /* HomeViewController.swift in Sources */,
 				04A0371B1F77054200B5CC8F /* GameLevelStruct.swift in Sources */,
 				04E99EA81F8972E500C5180B /* SettingsViewController.swift in Sources */,
+				048500651F8E968700E9C92E /* HowToTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

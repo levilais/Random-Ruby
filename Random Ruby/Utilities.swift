@@ -46,6 +46,7 @@ class Utilities {
         button.layer.shadowOpacity = 0.3
     }
     
+    // PRINT DATA
     func printData() {
         print("Ruby Count: \(GameLevel.rubyCount)")
         print("currentLevel: \(GameLevel.currentLevel)")
