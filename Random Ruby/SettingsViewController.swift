@@ -18,13 +18,6 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
-
-//        let loginButton = FBSDKLoginButton()
-//        let x = CGFloat(view.center.x)
-//        let y = CGFloat(view.center.y + view.frame.height / 2 - loginButton.frame.height - 32)
-//        loginButton.center = CGPoint(x: x, y: y)
-//        loginButton.readPermissions = ["public_profile","email"]
-//        view.addSubview(loginButton)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -33,6 +26,7 @@ class SettingsViewController: UIViewController, FBSDKLoginButtonDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
+        
         if indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "howToCell", for: indexPath) as! HowToTableViewCell
         } else if indexPath.row == 1 {

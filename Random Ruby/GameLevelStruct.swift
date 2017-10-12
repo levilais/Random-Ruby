@@ -12,9 +12,9 @@ import UIKit
 class GameLevel {
     // GAME VARIABLES
     static var firstLoad = true
-    static var rubyCount = 150
+    static var rubyCount = 20
     static var currentLevel = 0
-    static var currentGameState = "newGame" // "activeLevel", "finishedLevel"
+    static var currentGameState = "newGame" // "activeLevel", "finishedLevel", "gameOver"
     static var tilesExist = false
     
     // LEVEL VARIABLES

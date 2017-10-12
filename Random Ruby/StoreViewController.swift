@@ -8,28 +8,43 @@
 
 import UIKit
 
-class StoreViewController: UIViewController {
+class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var rubyCounterButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var buttonBackgroundImages: [UIImage] = Store().getButtonBackgroundImages()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
+        Utilities().setButtonShadow(button: rubyCounterButton)
+        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func rubyCounterButtonDidPress(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    @IBAction func doneButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return buttonBackgroundImages.count
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath) as! PurchaseTableViewCell
+        
+        return cell
+    }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        <#code#>
+//    }
 
 }

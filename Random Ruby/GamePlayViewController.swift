@@ -62,6 +62,7 @@ class GamePlayViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
         setHeaderContent()
         
         if GameLevel.currentGameState == "finishedLevel" {
@@ -72,6 +73,13 @@ class GamePlayViewController: UIViewController {
         setAnswerSpace()
         movePlayedTilesUponLoad()
         UserDefaultsHelper().saveGameContext()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        print(GameLevel.currentGameState)
+        if GameLevel.currentGameState == "gameOver" {
+            performSegue(withIdentifier: "showCorrectView", sender: self)
+        }
     }
     
     func setupNextLevelContent() {
@@ -128,9 +136,14 @@ class GamePlayViewController: UIViewController {
     
     @IBAction func solveButtonPressed(_ sender: Any) {
         if GameLevel.solutionGuess.joined() == GameLevel.answer {
-            GameLevel.currentLevel += 1
-            GameLevel.rubyCount += 4
-            GameLevel.currentGameState = "finishedLevel"
+            if GameLevel.currentLevel < 299 {
+                GameLevel.currentLevel += 1
+                GameLevel.currentGameState = "finishedLevel"
+            } else {
+                GameLevel.currentGameState = "gameOver"
+            }
+            print(GameLevel.currentGameState)
+            GameLevel.rubyCount += 1
             UserDefaultsHelper().saveGameContext()
             performSegue(withIdentifier: "showCorrectView", sender: self)
         } else {
@@ -141,7 +154,7 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func removeButtonPressed(_ sender: Any) {
-        if GameLevel.rubyCount >= 4 {
+        if GameLevel.rubyCount >= 3 {
             if GameLevel.removeCount < GameLevel.incorrectTiles.count {
                 let tileToRemove = GameLevel.incorrectTiles[GameLevel.removeCount]
                 var i = 0
@@ -175,7 +188,7 @@ class GamePlayViewController: UIViewController {
     }
     
     @IBAction func revealButtonPressed(_ sender: Any) {
-        if GameLevel.rubyCount >= 4 {
+        if GameLevel.rubyCount >= 5 {
             if GameLevel.existingAnswerTiles == GameLevel.answerCount && GameLevel.solutionGuess.joined() == GameLevel.answer {
                 Utilities().temporaryMessage(messageLabel: messageLabel, message: "Did you mean to press \"Solve\"?")
             } else if GameLevel.existingAnswerTiles == GameLevel.answerCount && GameLevel.solutionGuess.joined() != GameLevel.answer {
@@ -345,7 +358,7 @@ class GamePlayViewController: UIViewController {
     func setHeaderContent() {
         // SETUP DISPLAY
         rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
-        levelLabel.text = "Level: \(GameLevel.currentLevel + 1)"
+        levelLabel.text = "Level  \(GameLevel.currentLevel + 1)"
     }
     
     // SETUP COMMENT LABELS
