@@ -10,14 +10,8 @@ import Foundation
 import UIKit
 
 class Store {
-    func getButtonBackgroundImages() -> [UIImage] {
-        let imageNames = ["rubies50.pdf","rubies250.pdf","rubies750.pdf","rubies1500.pdf","rubies3000.pdf","rubies6000.pdf","rubies9000.pdf"]
-        var purchaseImages: [UIImage] = [UIImage]()
-        for i in 0..<imageNames.count {
-            if let image = UIImage(named: imageNames[i]) {
-                purchaseImages.append(image)
-            }
-        }
-        return purchaseImages
-    }
+    let rubyAmounts = ["50","250","750","1,500","3,000","6,000","9,000"]
+    let costs = ["$1.99","$4.99","$9.99","$14.99","$29.99","$59.99","$99.99"]
+    let titles = ["Some Rubies","More Rubies","Tons'a Rubies","Too Many","Ummm","You Crazy","Retiring Now"]
+    let subTitles = ["A good start...","A great value...","The best value ever...","Too many rubies...","Way too many...","This is out of hand...","Well that was fun..."]
 }

@@ -13,13 +13,12 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var rubyCounterButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
-    var buttonBackgroundImages: [UIImage] = Store().getButtonBackgroundImages()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
         Utilities().setButtonShadow(button: rubyCounterButton)
         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
+        tableView.tableFooterView = UIView()
     }
     
     @IBAction func rubyCounterButtonDidPress(_ sender: Any) {
@@ -34,12 +33,15 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return buttonBackgroundImages.count
+        return Store().titles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "storeCell", for: indexPath) as! PurchaseTableViewCell
-        
+        cell.rubyAmountLabel.text = Store().rubyAmounts[indexPath.row]
+        cell.subTitleLabel.text = Store().subTitles[indexPath.row]
+        cell.titleLabel.text = Store().titles[indexPath.row]
+        cell.costLabel.text = Store().costs[indexPath.row]
         return cell
     }
     
