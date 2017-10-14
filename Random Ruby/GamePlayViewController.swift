@@ -6,6 +6,12 @@
 //  Copyright © 2017 App Volks. All rights reserved.
 //
 
+
+
+//NEED TO CREATE PREPARE FOR SEGUE FOR DELEGATE: AT THE BOTTOM OF THIS WEBSITE https://www.appcoda.com/in-app-purchase-tutorial/
+
+
+
 import UIKit
 import GameKit
 import FBSDKCoreKit
@@ -14,6 +20,7 @@ import FBSDKShareKit
 import Social
 
 class GamePlayViewController: UIViewController {
+    
     
     // OUTLETS
     @IBOutlet weak var messageLabel: UILabel!
@@ -58,11 +65,10 @@ class GamePlayViewController: UIViewController {
                 Utilities().setButtonShadow(button: buttonUnwrapped)
             }
         }
-        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
         setHeaderContent()
         
         if GameLevel.currentGameState == "finishedLevel" {

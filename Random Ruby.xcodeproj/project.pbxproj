@@ -31,6 +31,7 @@
 		04E7ACC21F72DE530044F38D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E7ACC11F72DE530044F38D /* Main.storyboard */; };
 		04E7ACC61F7333F80044F38D /* randomRubyJsonData.json in Resources */ = {isa = PBXBuildFile; fileRef = 04E7ACC51F7333F80044F38D /* randomRubyJsonData.json */; };
 		04E99EA81F8972E500C5180B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E99EA71F8972E500C5180B /* SettingsViewController.swift */; };
+		04F89B0A1F9138EA00114E62 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F89B091F9138EA00114E62 /* StoreKit.framework */; };
 		04F99C651F72D253003D0CD7 /* Ranchers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */; };
 		04F99C661F72D253003D0CD7 /* Ranchers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */; };
 		04F99C671F72D253003D0CD7 /* Ranchers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */; };
@@ -85,6 +86,7 @@
 		04E7ACC51F7333F80044F38D /* randomRubyJsonData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = randomRubyJsonData.json; path = ../../Data/randomRubyJsonData.json; sourceTree = "<group>"; };
 		04E99EA61F89707100C5180B /* Random Ruby.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Random Ruby.entitlements"; sourceTree = "<group>"; };
 		04E99EA71F8972E500C5180B /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		04F89B091F9138EA00114E62 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		04F99C641F72D253003D0CD7 /* Ranchers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ranchers-Regular.ttf"; path = "../../../Fonts/Ranchers-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +98,7 @@
 				043632331F8976DC006B5EF6 /* FBSDKLoginKit.framework in Frameworks */,
 				043632341F8976DC006B5EF6 /* FBSDKCoreKit.framework in Frameworks */,
 				043632321F8976DC006B5EF6 /* FBSDKShareKit.framework in Frameworks */,
+				04F89B0A1F9138EA00114E62 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +198,7 @@
 		04E99EAF1F89769600C5180B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04F89B091F9138EA00114E62 /* StoreKit.framework */,
 				043632311F8976DC006B5EF6 /* FBSDKCoreKit.framework */,
 				043632301F8976DB006B5EF6 /* FBSDKLoginKit.framework */,
 				0436322F1F8976DB006B5EF6 /* FBSDKShareKit.framework */,
@@ -271,6 +275,9 @@
 					04D7032F1F6B5B22005B5040 = {
 						CreatedOnToolsVersion = 9.0;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -517,7 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Random Ruby/Random Ruby.entitlements";
-				DEVELOPMENT_TEAM = 556T3TQRKM;
+				DEVELOPMENT_TEAM = ZA86U458DA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/Documents/FacebookSDK",
 					"$(PROJECT_DIR)",
@@ -538,7 +545,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Random Ruby/Random Ruby.entitlements";
-				DEVELOPMENT_TEAM = 556T3TQRKM;
+				DEVELOPMENT_TEAM = ZA86U458DA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"~/Documents/FacebookSDK",
 					"$(PROJECT_DIR)",

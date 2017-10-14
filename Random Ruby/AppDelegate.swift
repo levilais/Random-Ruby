@@ -10,13 +10,32 @@
 import UIKit
 import CoreData
 import FBSDKCoreKit
+import StoreKit
 
+extension AppDelegate: SKPaymentTransactionObserver {
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction in transactions as [SKPaymentTransaction] {
+            switch transaction.transactionState {
+            case SKPaymentTransactionState.purchased:
+                Store.transactionInProgress = false
+                StoreViewController().didBuyRubies(rubiesIndex: Store.selectedProductIndex!)
+                SKPaymentQueue.default().finishTransaction(transaction)
+                print("Transaction completed successfully.")
+            case SKPaymentTransactionState.failed:
+                print("Transaction Failed");
+                SKPaymentQueue.default().finishTransaction(transaction)
+                Store.transactionInProgress = false
+            default:
+                print(transaction.transactionState.rawValue)
+            }
+        }
+    }
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -24,6 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = .lightContent
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        SKPaymentQueue.default().add(self)
 
         return true
     }
@@ -55,6 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+        SKPaymentQueue.default().remove(self)
+        
         self.saveContext()
     }
 
@@ -102,6 +125,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 }
 
