@@ -26,28 +26,24 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
         Utilities().setButtonShadow(button: rubyCounterButton)
+        Utilities().setButtonShadow(button: tryAgainButton)
         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
         tableView.tableFooterView = UIView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("isConnectedToNetwork: \(ConnectionCheck.isConnectedToNetwork())")
         if ConnectionCheck.isConnectedToNetwork() == true {
             requestProductInfo()
-            print("productsArray.count: \(productsArray.count)")
         } else {
-            print("Internet connection FAILED")
             showTryAgain()
         }
     }
     
     @IBAction func tryAgainButtonPressed(_ sender: Any) {
-        // try to load products again
         requestProductInfo()
     }
     
     func showTryAgain() {
-        // show the try again functionality and hide tableview
         tableView.isHidden = true
         tryAgainTitleLabel.isHidden = false
         tryAgainDirectionsLabel.isHidden = false
@@ -55,7 +51,6 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func hideTryAgain() {
-        // hide the try again functinoality and show tableview
         tableView.isHidden = false
         tryAgainTitleLabel.isHidden = true
         tryAgainDirectionsLabel.isHidden = true
@@ -67,7 +62,6 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let productRequest = SKProductsRequest(productIdentifiers: productIDs)
             productRequest.delegate = self
             productRequest.start()
-            print("Product request was sent to the App Store.")
         } else {
             let alert = UIAlertController(title: "In-App Purchases Not Enabled", message: "Please enable In-App Purchase in Settings > General > Restrictions", preferredStyle: .alert)
             let settingsButton = UIAlertAction(title: "Settings", style: .default) {
@@ -90,23 +84,19 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if response.products.count != 0 {
-            print("products were returned")
             var tempProductsArray = [SKProduct]()
             for product in response.products {
                 tempProductsArray.append(product as SKProduct)
             }
             tempProductsArray = tempProductsArray.sorted(by: {Float(truncating: $0.price) < Float(truncating: $1.price)})
             productsArray = tempProductsArray
-            print("There are \(productsArray.count) elements in the productsArray.")
             hideTryAgain()
         } else {
-            print("No products returned")
             showTryAgain()
         }
         if response.invalidProductIdentifiers.count != 0 {
             print(response.invalidProductIdentifiers.description)
         }
-        print("productsRequest has finished")
     }
     
     @IBAction func rubyCounterButtonDidPress(_ sender: Any) {
@@ -136,16 +126,13 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if Store.transactionInProgress == false {
                 if let unwrappedSelectedIndex = Store.selectedProductIndex {
                     if self.productsArray.count != 0 {
-                        print("products exist")
                         let payment = SKPayment(product: self.productsArray[unwrappedSelectedIndex] as SKProduct)
                         SKPaymentQueue.default().add(payment)
                         Store.purchaseItemsDelivered = false
                         Store.transactionInProgress = true
-                        print("Store.selectedProductIndex before saving transaction: \(String(describing: Store.selectedProductIndex))")
                         UserDefaultsHelper().savePurchaseState()
                         tableView.isHidden = false
                     } else {
-                        print("product doesn't exist")
                         showTryAgain()
                     }
                 }
@@ -166,6 +153,7 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
             Store.purchaseItemsDelivered = true
             Store.transactionInProgress = false
             UserDefaultsHelper().saveGameContext()
+            UserDefaultsHelper().savePurchaseState()
         }
     }
 }
