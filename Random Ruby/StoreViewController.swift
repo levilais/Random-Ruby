@@ -8,28 +8,58 @@
 
 import UIKit
 import StoreKit
+import SystemConfiguration
 
-class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SKProductsRequestDelegate/*, SKPaymentTransactionObserver*/ {
+class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SKProductsRequestDelegate {
     
+    @IBOutlet weak var tryAgainDirectionsLabel: UILabel!
+    @IBOutlet weak var tryAgainTitleLabel: UILabel!
+    @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet weak var rubyCounterButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     
     let productIDs: Set<String> = ["com.AppVolks.RandomRuby.50Rubies","com.AppVolks.RandomRuby.250Rubies","com.AppVolks.RandomRuby.750Rubies","com.AppVolks.RandomRuby.1500Rubies","com.AppVolks.RandomRuby.3000Rubies","com.AppVolks.RandomRuby.6000Rubies","com.AppVolks.RandomRuby.9000Rubies"]
     let rubyAmountsToAdd: [Int] = [50,250,750,1500,3000,6000,9000]
     var productsArray: Array<SKProduct> = []
-//    var selectedProductIndex: Int!
-//    var transactionInProgress = false
-//    var delegate: StoreViewControllerDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        SKPaymentQueue.default().add(self)
         rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
         Utilities().setButtonShadow(button: rubyCounterButton)
         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
         tableView.tableFooterView = UIView()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("isConnectedToNetwork: \(ConnectionCheck.isConnectedToNetwork())")
+        if ConnectionCheck.isConnectedToNetwork() == true {
+            requestProductInfo()
+            print("productsArray.count: \(productsArray.count)")
+        } else {
+            print("Internet connection FAILED")
+            showTryAgain()
+        }
+    }
+    
+    @IBAction func tryAgainButtonPressed(_ sender: Any) {
+        // try to load products again
         requestProductInfo()
+    }
+    
+    func showTryAgain() {
+        // show the try again functionality and hide tableview
+        tableView.isHidden = true
+        tryAgainTitleLabel.isHidden = false
+        tryAgainDirectionsLabel.isHidden = false
+        tryAgainButton.isHidden = false
+    }
+    
+    func hideTryAgain() {
+        // hide the try again functinoality and show tableview
+        tableView.isHidden = false
+        tryAgainTitleLabel.isHidden = true
+        tryAgainDirectionsLabel.isHidden = true
+        tryAgainButton.isHidden = true
     }
     
     func requestProductInfo() {
@@ -37,25 +67,46 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
             let productRequest = SKProductsRequest(productIdentifiers: productIDs)
             productRequest.delegate = self
             productRequest.start()
-        }
-        else {
-            print("Cannot perform In App Purchases.")
+            print("Product request was sent to the App Store.")
+        } else {
+            let alert = UIAlertController(title: "In-App Purchases Not Enabled", message: "Please enable In-App Purchase in Settings > General > Restrictions", preferredStyle: .alert)
+            let settingsButton = UIAlertAction(title: "Settings", style: .default) {
+                UIAlertAction in
+                alert.dismiss(animated: true, completion: nil)
+                UIApplication.shared.open(URL(string:"App-Prefs:root=General")!, options: [:], completionHandler: nil)
+            }
+            let okButton = UIAlertAction(title: "OK", style: .default) {
+                UIAlertAction in
+                alert.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(settingsButton)
+            alert.addAction(okButton)
+            
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if response.products.count != 0 {
+            print("products were returned")
+            var tempProductsArray = [SKProduct]()
             for product in response.products {
-                productsArray.append(product as SKProduct)
+                tempProductsArray.append(product as SKProduct)
             }
-            productsArray = productsArray.sorted(by: {Float(truncating: $0.price) < Float(truncating: $1.price)})
-        }
-        else {
-            print("There are no products.")
+            tempProductsArray = tempProductsArray.sorted(by: {Float(truncating: $0.price) < Float(truncating: $1.price)})
+            productsArray = tempProductsArray
+            print("There are \(productsArray.count) elements in the productsArray.")
+            hideTryAgain()
+        } else {
+            print("No products returned")
+            showTryAgain()
         }
         if response.invalidProductIdentifiers.count != 0 {
             print(response.invalidProductIdentifiers.description)
         }
+        print("productsRequest has finished")
     }
     
     @IBAction func rubyCounterButtonDidPress(_ sender: Any) {
@@ -80,23 +131,45 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Store.selectedProductIndex = indexPath.row
-        
-        if Store.transactionInProgress == false {
-            let payment = SKPayment(product: self.productsArray[Store.selectedProductIndex!] as SKProduct)
-            SKPaymentQueue.default().add(payment)
-            Store.transactionInProgress = true
+        if ConnectionCheck.isConnectedToNetwork() == true {
+            Store.selectedProductIndex = indexPath.row
+            if Store.transactionInProgress == false {
+                if let unwrappedSelectedIndex = Store.selectedProductIndex {
+                    if self.productsArray.count != 0 {
+                        print("products exist")
+                        let payment = SKPayment(product: self.productsArray[unwrappedSelectedIndex] as SKProduct)
+                        SKPaymentQueue.default().add(payment)
+                        Store.purchaseItemsDelivered = false
+                        Store.transactionInProgress = true
+                        print("Store.selectedProductIndex before saving transaction: \(String(describing: Store.selectedProductIndex))")
+                        UserDefaultsHelper().savePurchaseState()
+                        tableView.isHidden = false
+                    } else {
+                        print("product doesn't exist")
+                        showTryAgain()
+                    }
+                }
+            }
+            tableView.cellForRow(at: indexPath)?.isSelected = false
+        } else {
+            showTryAgain()
         }
-        
-        tableView.cellForRow(at: indexPath)?.isSelected = false
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func didBuyRubies(rubiesIndex: Int) {
-        GameLevel.rubyCount += rubyAmountsToAdd[Store.selectedProductIndex!]
-        UserDefaultsHelper().saveGameContext()
+    func deliverPurchaseItems(rubiesIndex: Int) {
+        UserDefaultsHelper().loadCurrentTransactionState()
+        if Store.purchaseItemsDelivered == false {
+            if let productIndex = Store.selectedProductIndex {
+                GameLevel.rubyCount += rubyAmountsToAdd[productIndex]
+            }
+            Store.purchaseItemsDelivered = true
+            Store.transactionInProgress = false
+            UserDefaultsHelper().saveGameContext()
+        }
     }
 }
+
 
 
 

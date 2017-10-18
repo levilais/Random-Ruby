@@ -823,22 +823,61 @@
                                     <outlet property="delegate" destination="nVY-XN-z0z" id="DuG-LN-doe"/>
                                 </connections>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something Went Wrong" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="209-86-isa">
+                                <rect key="frame" x="30" y="169" width="260" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="ARL-3K-A7R"/>
+                                    <constraint firstAttribute="height" constant="30" id="etk-X2-WVe"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unable to connect to iTunes.  Please check your internet connection and try again." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xkW-FU-Nz1">
+                                <rect key="frame" x="30" y="207" width="260" height="59.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="260" id="fuH-aO-0DC"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DA-sQ-vW9">
+                                <rect key="frame" x="76" y="282.5" width="168" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="168" id="Evd-un-P6x"/>
+                                    <constraint firstAttribute="height" constant="43" id="lgs-e1-5rx"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="tryAgainButton"/>
+                                <connections>
+                                    <action selector="tryAgainButtonPressed:" destination="nVY-XN-z0z" eventType="touchUpInside" id="ABC-ps-Hm4"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.26600000000000001" green="0.57379999999999998" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="cWo-TV-q5t" firstAttribute="bottom" secondItem="ReR-2b-Lov" secondAttribute="bottom" id="0p5-hV-IvE"/>
                             <constraint firstItem="mVC-sR-yr4" firstAttribute="leading" secondItem="ReR-2b-Lov" secondAttribute="leading" id="2Z0-UJ-mHb"/>
+                            <constraint firstItem="6DA-sQ-vW9" firstAttribute="centerX" secondItem="mSD-Ea-rCx" secondAttribute="centerX" id="3ML-bM-Ia0"/>
                             <constraint firstItem="cWo-TV-q5t" firstAttribute="top" secondItem="mVC-sR-yr4" secondAttribute="bottom" id="7Kn-br-XEb"/>
+                            <constraint firstItem="209-86-isa" firstAttribute="centerY" secondItem="mSD-Ea-rCx" secondAttribute="centerY" constant="-100" id="F9Q-oO-uCv"/>
                             <constraint firstItem="cWo-TV-q5t" firstAttribute="trailing" secondItem="ReR-2b-Lov" secondAttribute="trailing" id="Hmo-nz-7Jv"/>
                             <constraint firstItem="mVC-sR-yr4" firstAttribute="top" secondItem="ReR-2b-Lov" secondAttribute="top" id="HyG-MR-cs7"/>
+                            <constraint firstItem="xkW-FU-Nz1" firstAttribute="centerX" secondItem="mSD-Ea-rCx" secondAttribute="centerX" id="Tpq-Sv-NXh"/>
                             <constraint firstItem="cWo-TV-q5t" firstAttribute="leading" secondItem="ReR-2b-Lov" secondAttribute="leading" id="dwE-Pl-zah"/>
                             <constraint firstItem="mVC-sR-yr4" firstAttribute="trailing" secondItem="ReR-2b-Lov" secondAttribute="trailing" id="j4r-PU-KOj"/>
+                            <constraint firstItem="209-86-isa" firstAttribute="centerX" secondItem="mSD-Ea-rCx" secondAttribute="centerX" id="nrL-4i-iAa"/>
+                            <constraint firstItem="xkW-FU-Nz1" firstAttribute="top" secondItem="209-86-isa" secondAttribute="bottom" constant="8" id="obV-Xm-HFu"/>
+                            <constraint firstItem="6DA-sQ-vW9" firstAttribute="top" secondItem="xkW-FU-Nz1" secondAttribute="bottom" constant="16" id="yYI-pU-5ue"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ReR-2b-Lov"/>
                     </view>
                     <connections>
                         <outlet property="rubyCounterButton" destination="RES-za-Ghu" id="RYv-Nh-Szb"/>
                         <outlet property="tableView" destination="cWo-TV-q5t" id="93S-Un-6ER"/>
+                        <outlet property="tryAgainButton" destination="6DA-sQ-vW9" id="Taj-lK-tu6"/>
+                        <outlet property="tryAgainDirectionsLabel" destination="xkW-FU-Nz1" id="Jqa-Ma-T4Y"/>
+                        <outlet property="tryAgainTitleLabel" destination="209-86-isa" id="A0a-h4-zMV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z5j-NF-1Ct" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -968,6 +1007,7 @@
         <image name="rubyTextView" width="1824" height="552"/>
         <image name="settingsGear" width="144" height="144"/>
         <image name="solveButton" width="1104" height="186"/>
+        <image name="tryAgainButton" width="1008" height="258"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="NbV-ch-PtY"/>

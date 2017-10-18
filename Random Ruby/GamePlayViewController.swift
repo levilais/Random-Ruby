@@ -40,6 +40,7 @@ class GamePlayViewController: UIViewController {
     var tileButtons = [UIButton]()
     var tileOriginalPositions = [CGPoint]()
     var answerPositions = [CGPoint]()
+    var logginIntoFacebookToPost = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,10 @@ class GamePlayViewController: UIViewController {
         if GameLevel.currentGameState == "gameOver" {
             performSegue(withIdentifier: "showCorrectView", sender: self)
         }
+        if logginIntoFacebookToPost == true {
+            logginIntoFacebookToPost = false
+            FacebookHelper().shareOnFB(vc: self)
+        }
     }
     
     func setupNextLevelContent() {
@@ -120,6 +125,7 @@ class GamePlayViewController: UIViewController {
         if(FBSDKAccessToken.current() != nil) {
             FacebookHelper().shareOnFB(vc: self)
         } else {
+            logginIntoFacebookToPost = true
             FacebookHelper().loginFacebookAction(sender: self)
         }
     }

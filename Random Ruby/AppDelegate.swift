@@ -17,14 +17,15 @@ extension AppDelegate: SKPaymentTransactionObserver {
         for transaction in transactions as [SKPaymentTransaction] {
             switch transaction.transactionState {
             case SKPaymentTransactionState.purchased:
-                Store.transactionInProgress = false
-                StoreViewController().didBuyRubies(rubiesIndex: Store.selectedProductIndex!)
+                UserDefaultsHelper().loadCurrentTransactionState()
+                if let productIndex = Store.selectedProductIndex {
+                    StoreViewController().deliverPurchaseItems(rubiesIndex: productIndex)
+                }
                 SKPaymentQueue.default().finishTransaction(transaction)
-                print("Transaction completed successfully.")
             case SKPaymentTransactionState.failed:
-                print("Transaction Failed");
                 SKPaymentQueue.default().finishTransaction(transaction)
                 Store.transactionInProgress = false
+                UserDefaultsHelper().saveGameContext()
             default:
                 print(transaction.transactionState.rawValue)
             }
@@ -41,9 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         UIApplication.shared.statusBarStyle = .lightContent
-        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
         SKPaymentQueue.default().add(self)
 
         return true

@@ -97,6 +97,7 @@ class UserDefaultsHelper {
         UserDefaults.standard.set(GameLevel.answerCount, forKey: GameLevel.Key.answerCount.rawValue)
         UserDefaults.standard.set(GameLevel.tileRemoved, forKey: GameLevel.Key.tileRemoved.rawValue)
         UserDefaults.standard.set(GameLevel.tileRevealed, forKey: GameLevel.Key.tileRevealed.rawValue)
+        UserDefaults.standard.synchronize()
     }
     
     // LOAD ACTIVE GAME CONTEXT
@@ -138,6 +139,24 @@ class UserDefaultsHelper {
             GameLevel.answerCount = answerCountCheck as! Int
             GameLevel.tileRemoved = tileRemovedCheck as! [Int]
             GameLevel.tileRevealed = tileRevealedCheck as! [Int]
+        }
+    }
+    
+    func savePurchaseState() {
+        UserDefaults.standard.set(Store.selectedProductIndex, forKey: Store.Key.selectedProductIndex.rawValue)
+        UserDefaults.standard.set(Store.transactionInProgress, forKey: Store.Key.transactionInProgress.rawValue)
+        UserDefaults.standard.set(Store.purchaseItemsDelivered, forKey: Store.Key.purchaseItemsDelivered.rawValue)
+        UserDefaults.standard.synchronize()
+    }
+    
+    func loadCurrentTransactionState() {
+        if let selectedProductIndexCheck = UserDefaults.standard.object(forKey: Store.Key.selectedProductIndex.rawValue),
+            let transactionInProgressCheck = UserDefaults.standard.object(forKey: Store.Key.transactionInProgress.rawValue),
+            let purchaseItemsDeliveredCheck = UserDefaults.standard.object(forKey: Store.Key.purchaseItemsDelivered.rawValue)
+        {
+            Store.selectedProductIndex = selectedProductIndexCheck as? Int
+            Store.transactionInProgress = transactionInProgressCheck as! Bool
+            Store.purchaseItemsDelivered = purchaseItemsDeliveredCheck as! Bool
         }
     }
 }
