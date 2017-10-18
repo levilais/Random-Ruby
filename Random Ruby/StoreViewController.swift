@@ -29,6 +29,7 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
         Utilities().setButtonShadow(button: tryAgainButton)
         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
         tableView.tableFooterView = UIView()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification(_:)), name: NSNotification.Name(rawValue: "rubiesChanged"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -152,9 +153,12 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
             }
             Store.purchaseItemsDelivered = true
             Store.transactionInProgress = false
-            UserDefaultsHelper().saveGameContext()
             UserDefaultsHelper().savePurchaseState()
         }
+    }
+    
+    @objc func handleNotification(_ notification: NSNotification) {
+        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
     }
 }
 

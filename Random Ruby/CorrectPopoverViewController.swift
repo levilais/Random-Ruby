@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class CorrectPopoverViewController: UIViewController {
 
@@ -37,7 +38,6 @@ class CorrectPopoverViewController: UIViewController {
     }
     
     @IBAction func nextButtonPressed(_ sender: Any) {
-//        dismiss(animated: true, completion: nil)
         _ = navigationController?.popViewController(animated: true)
     }
 }

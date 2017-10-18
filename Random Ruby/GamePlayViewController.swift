@@ -18,6 +18,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FBSDKShareKit
 import Social
+import StoreKit
 
 class GamePlayViewController: UIViewController {
     
@@ -66,6 +67,7 @@ class GamePlayViewController: UIViewController {
                 Utilities().setButtonShadow(button: buttonUnwrapped)
             }
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification(_:)), name: NSNotification.Name(rawValue: "rubiesChanged"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +82,10 @@ class GamePlayViewController: UIViewController {
         setAnswerSpace()
         movePlayedTilesUponLoad()
         UserDefaultsHelper().saveGameContext()
+
+        if GameLevel.currentLevel == 7 {
+            SKStoreReviewController.requestReview()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -376,7 +382,6 @@ class GamePlayViewController: UIViewController {
     // SETUP COMMENT LABELS
     func setLabels() {
         let newFontSize = Utilities().screenBasedFontSize(minimumFontSize: 15)
-        
         var i = 0
         for label in commentLabels {
             label.text = GameLevel.comments[i]
@@ -385,6 +390,10 @@ class GamePlayViewController: UIViewController {
             label.font = label.font.withSize(newFontSize)
             i += 1
         }
+    }
+    
+    @objc func handleNotification(_ notification: NSNotification) {
+        Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
     }
 }
 
