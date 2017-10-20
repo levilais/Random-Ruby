@@ -6,12 +6,6 @@
 //  Copyright © 2017 App Volks. All rights reserved.
 //
 
-
-
-//NEED TO CREATE PREPARE FOR SEGUE FOR DELEGATE: AT THE BOTTOM OF THIS WEBSITE https://www.appcoda.com/in-app-purchase-tutorial/
-
-
-
 import UIKit
 import GameKit
 import FBSDKCoreKit
@@ -21,7 +15,6 @@ import Social
 import StoreKit
 
 class GamePlayViewController: UIViewController {
-    
     
     // OUTLETS
     @IBOutlet weak var messageLabel: UILabel!
@@ -41,7 +34,6 @@ class GamePlayViewController: UIViewController {
     var tileButtons = [UIButton]()
     var tileOriginalPositions = [CGPoint]()
     var answerPositions = [CGPoint]()
-    var logginIntoFacebookToPost = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,10 +85,6 @@ class GamePlayViewController: UIViewController {
         if GameLevel.currentGameState == "gameOver" {
             performSegue(withIdentifier: "showCorrectView", sender: self)
         }
-        if logginIntoFacebookToPost == true {
-            logginIntoFacebookToPost = false
-            FacebookHelper().shareOnFB(vc: self)
-        }
     }
     
     func setupNextLevelContent() {
@@ -131,7 +119,6 @@ class GamePlayViewController: UIViewController {
         if(FBSDKAccessToken.current() != nil) {
             FacebookHelper().shareOnFB(vc: self)
         } else {
-            logginIntoFacebookToPost = true
             FacebookHelper().loginFacebookAction(sender: self)
         }
     }
@@ -376,7 +363,7 @@ class GamePlayViewController: UIViewController {
     func setHeaderContent() {
         // SETUP DISPLAY
         rubyCounterButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
-        levelLabel.text = "Level  \(GameLevel.currentLevel + 1)"
+        levelLabel.text = "Level  \(GameLevel.currentLevel + 1) / 300"
     }
     
     // SETUP COMMENT LABELS
