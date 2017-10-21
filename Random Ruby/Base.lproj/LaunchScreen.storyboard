@@ -20,27 +20,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="largeRubyImage" translatesAutoresizingMaskIntoConstraints="NO" id="9M1-zm-1ar">
-                                <rect key="frame" x="63" y="209" width="249" height="249"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AV" translatesAutoresizingMaskIntoConstraints="NO" id="3Eg-tR-mRe">
+                                <rect key="frame" x="127" y="303" width="120" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="249" id="GjQ-rf-I9q"/>
-                                    <constraint firstAttribute="height" constant="249" id="Jpr-P6-lfN"/>
-                                </constraints>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="randomRubyTitle" translatesAutoresizingMaskIntoConstraints="NO" id="2FC-22-MAu">
-                                <rect key="frame" x="74" y="84" width="226" height="117"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="226" id="LSm-gU-422"/>
-                                    <constraint firstAttribute="height" constant="117" id="SRP-v4-DpH"/>
+                                    <constraint firstAttribute="height" constant="60" id="B5N-Rq-1Au"/>
+                                    <constraint firstAttribute="width" constant="120" id="EL1-cp-vCd"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.26600000000000001" green="0.57379999999999998" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="9M1-zm-1ar" firstAttribute="top" secondItem="2FC-22-MAu" secondAttribute="bottom" constant="8" id="31C-Fq-dTW"/>
-                            <constraint firstItem="2FC-22-MAu" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="OT6-yX-Maz"/>
-                            <constraint firstItem="9M1-zm-1ar" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="QCR-hY-Jao"/>
-                            <constraint firstItem="9M1-zm-1ar" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="yvt-Ct-ftp"/>
+                            <constraint firstItem="3Eg-tR-mRe" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="4T3-9V-mVX"/>
+                            <constraint firstItem="3Eg-tR-mRe" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EhD-ES-OGZ"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -50,7 +41,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="largeRubyImage" width="1644" height="1644"/>
-        <image name="randomRubyTitle" width="1380" height="672"/>
+        <image name="AV" width="720" height="360"/>
     </resources>
 </document>

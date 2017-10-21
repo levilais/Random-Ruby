@@ -30,6 +30,7 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
         Utilities().updateRubyLabel(rubyCount: GameLevel.rubyCount, buttonForLabelUpdate: rubyCounterButton)
         tableView.tableFooterView = UIView()
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleNotification(_:)), name: NSNotification.Name(rawValue: "rubiesChanged"), object: nil)
+        tableView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +47,7 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func showTryAgain() {
         tableView.isHidden = true
+        tryAgainTitleLabel.text = "Something Went Wrong"
         tryAgainTitleLabel.isHidden = false
         tryAgainDirectionsLabel.isHidden = false
         tryAgainButton.isHidden = false
@@ -86,11 +88,25 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         if response.products.count != 0 {
             var tempProductsArray = [SKProduct]()
+            var tempPriceArray = [String]()
             for product in response.products {
                 tempProductsArray.append(product as SKProduct)
             }
             tempProductsArray = tempProductsArray.sorted(by: {Float(truncating: $0.price) < Float(truncating: $1.price)})
             productsArray = tempProductsArray
+            for product in productsArray {
+                tempPriceArray.append(product.localizedPrice())
+            }
+            Store.costs = tempPriceArray
+            print("productsArray: \(productsArray)")
+            if let costArrayCheck = Store.costs {
+                print("Store.costs: \(costArrayCheck)")
+            } else {
+                print("not costs yet")
+            }
+            tableView.reloadData()
+            tryAgainTitleLabel.text = "Something Went Wrong"
+            tryAgainTitleLabel.isHidden = true
             hideTryAgain()
         } else {
             showTryAgain()
@@ -117,7 +133,13 @@ class StoreViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.rubyAmountLabel.text = Store.rubyAmounts[indexPath.row]
         cell.subTitleLabel.text = Store.subTitles[indexPath.row]
         cell.titleLabel.text = Store.titles[indexPath.row]
-        cell.costLabel.text = Store.costs[indexPath.row]
+        var cost: String?
+        if let costs = Store.costs {
+            cost = costs[indexPath.row]
+        }
+        if let costCheck = cost {
+            cell.costLabel.text = costCheck
+        }
         return cell
     }
     

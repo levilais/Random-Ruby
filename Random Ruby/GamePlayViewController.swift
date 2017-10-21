@@ -74,10 +74,11 @@ class GamePlayViewController: UIViewController {
         setAnswerSpace()
         movePlayedTilesUponLoad()
         UserDefaultsHelper().saveGameContext()
-
+        
         if GameLevel.currentLevel == 7 {
             SKStoreReviewController.requestReview()
         }
+        setupLevelOneTileHints()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -185,13 +186,6 @@ class GamePlayViewController: UIViewController {
         UserDefaultsHelper().saveGameContext()
     }
     
-    func removeTile(tag: Int) {
-        tileButtons[tag].isHidden = true
-        if GameLevel.tileInPlay[tag] != false {
-            putTileBack(tileToMove: tag)
-        }
-    }
-    
     @IBAction func revealButtonPressed(_ sender: Any) {
         if GameLevel.rubyCount >= 5 {
             if GameLevel.existingAnswerTiles == GameLevel.answerCount && GameLevel.solutionGuess.joined() == GameLevel.answer {
@@ -237,6 +231,13 @@ class GamePlayViewController: UIViewController {
     func lockRevealedTile(tag: Int) {
         tileButtons[tag].isUserInteractionEnabled = false
         tileButtons[tag].setTitleColor(UIColor(red: 208/255.0, green: 1/255.0, blue: 27/255.0, alpha: 1.0), for: .normal)
+    }
+    
+    func removeTile(tag: Int) {
+        tileButtons[tag].isHidden = true
+        if GameLevel.tileInPlay[tag] != false {
+            putTileBack(tileToMove: tag)
+        }
     }
     
     func placeTile(tileToMove: Int) {
@@ -368,6 +369,10 @@ class GamePlayViewController: UIViewController {
     
     // SETUP COMMENT LABELS
     func setLabels() {
+        if GameLevel.currentLevel == 0 {
+            setupLevelOneCommentHints()
+        }
+        
         let newFontSize = Utilities().screenBasedFontSize(minimumFontSize: 15)
         var i = 0
         for label in commentLabels {
@@ -377,6 +382,35 @@ class GamePlayViewController: UIViewController {
             label.font = label.font.withSize(newFontSize)
             i += 1
         }
+    }
+    
+    // SETUP LEVEL 1
+    func setupLevelOneTileHints() {
+        for button in tileButtons {
+            switch button.titleLabel?.text {
+            case "C"?: button.titleLabel?.textColor = UIColor.orange
+            case "U"?: button.titleLabel?.textColor = UIColor.orange
+            case "T"?: button.titleLabel?.textColor = UIColor.orange
+            default:
+                break
+            }
+        }
+    }
+    
+    func setupLevelOneCommentHints() {
+        let main_string1 = "It's been weeks since I've mowed the lawn..."
+        let string_to_color1 = "mowed the lawn"
+        let range1 = (main_string1 as NSString).range(of: string_to_color1)
+        let attributedString1 = NSMutableAttributedString(string:main_string1)
+        attributedString1.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.orange , range: range1)
+        commentLabels[1].attributedText = attributedString1
+        
+        let main_string2 = "Did you guys notice that my hair is a little shorter?"
+        let string_to_color2 = "hair is a little shorter"
+        let range2 = (main_string2 as NSString).range(of: string_to_color2)
+        let attributedString2 = NSMutableAttributedString(string:main_string2)
+        attributedString2.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.orange , range: range2)
+        commentLabels[2].attributedText = attributedString2
     }
     
     @objc func handleNotification(_ notification: NSNotification) {
